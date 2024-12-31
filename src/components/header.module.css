@@ -1,22 +1,3 @@
-.page {
-  --header-height: 12rem;
-
-  display: grid;
-  grid-template-rows: var(--header-height) 1fr var(--header-height);
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 1rem;
-  gap: 0;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  grid-row-start: 2;
-}
-
 .header {
   grid-row-start: 1;
   display: flex;
@@ -30,17 +11,11 @@
   padding: 2rem;
 }
 
-.footer {
-  grid-row-start: 3;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  max-width: fit-content;
-  height: 184px;
-}
-
 .hamburger {
   display: inline-block;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
   text-align: right;
   padding: 3px 0;
   height: 30px;
@@ -49,6 +24,7 @@
   transition-duration: 0.15s;
   transition-timing-function: linear;
   overflow: visible;
+  z-index: 999;
   @media (max-width: 480px) {
     transform: scale(0.9);
   }
@@ -60,7 +36,7 @@
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-  background-color: #000;
+  background-color: white;
   transform: scale(1.1);
 }
 .hamburger-box {
@@ -126,6 +102,59 @@
   transition: right 0.125s ease-out, top 0.05s 0.125s linear,
     transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.z-index-999 {
-  z-index: 999;
+
+.menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  top: 0;
+  right: 0;
+  padding: 6rem 0 3rem;
+  width: 20%;
+  min-width: 20rem;
+  background: #000000df;
+  color: white;
+  height: 100svh;
+  color: white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 99;
+}
+
+.menu.is-active {
+  transform: translateX(0);
+}
+
+.menu ul {
+  overflow: hidden;
+  margin-left: 3rem;
+}
+
+.menu li {
+  position: relative;
+  font-size: 2.5rem;
+  cursor: pointer;
+  width: fit-content;
+  list-style: none;
+  margin-bottom: 0.5rem;
+
+  &::after,
+  &:hover::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin-top: 0.2rem;
+    transform: translateX(calc(-100% - 3rem));
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover::after {
+    transform: translateX(0);
+  }
 }
