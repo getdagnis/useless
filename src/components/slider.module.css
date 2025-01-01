@@ -12,6 +12,7 @@
   line-height: 1.1;
   animation: slideInFromLeft 0.5s ease-in-out;
   animation-fill-mode: backwards;
+  text-transform: uppercase;
   user-select: none;
   width: fit-content;
   height: fit-content;
@@ -69,9 +70,7 @@
 }
 
 .arrowContainer:hover::after,
-.arrowContainerLeft:hover::after,
-.arrowContainer.scroll::after,
-.arrowContainerLeft.scroll::after {
+.arrowContainerLeft:hover::after {
   opacity: 1;
   translate: 0;
 }
@@ -87,9 +86,16 @@
 }
 
 .pagination li {
-  width: 1rem;
-  height: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   border: solid 1.5px white;
   display: flex;
+  transition: background 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0.35rem;
+}
+
+.pagination li.active {
+  background: white;
 }

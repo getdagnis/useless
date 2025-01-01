@@ -10,6 +10,28 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    });
+
+    return () => {
+      removeEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          setIsMenuOpen(false);
+        }
+      });
+    };
+  }, [isMenuOpen]);
+
   return (
     <header className={styles.header}>
       <Image
@@ -31,8 +53,9 @@ const Header = () => {
       </div>
       <div className={`${styles.menu} ${isMenuOpen && styles['is-active']}`}>
         <ul>
+          <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Don't Buy!</li>
           <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Vote</li>
-          <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Support</li>
+          <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Suggest New</li>
           <li onClick={() => setIsMenuOpen(!isMenuOpen)}>About</li>
         </ul>
       </div>

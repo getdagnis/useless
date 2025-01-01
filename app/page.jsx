@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import { Header, Slider } from '../components/';
+import { Header, Slider } from '../src/components/';
 
 export default function Home() {
   return (
