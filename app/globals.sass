@@ -1,0 +1,46 @@
+@font-face
+  font-family: 'DIN Alternate'
+  src: url('/din1451alt.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+
+:root
+  --background: #e2001a
+  --foreground: white
+
+html,
+body
+  max-width: 100vw
+  overflow-x: hidden
+  user-select: none
+
+body
+  color: var(--foreground)
+  background: var(--background)
+  font-family: 'DIN Alternate', Arial, Helvetica, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  font-kerning: none
+  letter-spacing: 0.5px
+
+*
+  box-sizing: border-box
+  padding: 0
+  margin: 0
+
+a
+  color: inherit
+  text-decoration: none
+
+@media (prefers-color-scheme: dark)
+  html
+    color-scheme: dark
+
+@media (prefers-reduced-motion: reduce)
+  *,
+  *::before,
+  *::after
+    animation-duration: 0.01ms !important
+    animation-iteration-count: 1 !important
+    transition-duration: 0.01ms !important
+    scroll-behavior: auto !important

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import styles from './header.module.css';
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import styles from "./header.module.sass";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,20 +12,20 @@ const Header = () => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
 
-    addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
+    addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
         setIsMenuOpen(false);
       }
     });
 
     return () => {
-      removeEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
+      removeEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
           setIsMenuOpen(false);
         }
       });
@@ -34,24 +34,28 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <Image
-        className={styles.logo}
-        src="/logo-white.svg"
-        alt="Completely Useless Stickers"
-        width={370}
-        height={184}
-        priority
-      />
+      <div className={styles.logoContainer}>
+        <Image
+          className={styles.logo}
+          src="/logo-white.svg"
+          width={370}
+          height={184}
+          alt="Completely Useless Stickers"
+          priority
+        />
+      </div>
 
       <div
-        className={`${styles.hamburger} ${styles['hamburger--collapser']} ${isMenuOpen && styles['is-active']}`}
+        className={`${styles.hamburger} ${styles["hamburger--collapser"]} ${
+          isMenuOpen && styles["is-active"]
+        }`}
         onClick={() => handleHamburgerClick()}
       >
-        <span className={styles['hamburger-box']}>
-          <span className={styles['hamburger-inner']}></span>
+        <span className={styles["hamburger-box"]}>
+          <span className={styles["hamburger-inner"]}></span>
         </span>
       </div>
-      <div className={`${styles.menu} ${isMenuOpen && styles['is-active']}`}>
+      <div className={`${styles.menu} ${isMenuOpen && styles["is-active"]}`}>
         <ul>
           <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Don't Buy!</li>
           <li onClick={() => setIsMenuOpen(!isMenuOpen)}>Vote</li>
