@@ -5,11 +5,6 @@ import { StickerProps } from "../src/constants";
  ************************************ VARIOUS ************************************
  *********************************************************************************/
 
-export const isTouchDevice: boolean =
-	window.innerWidth < 600 ||
-	navigator.maxTouchPoints > 0 ||
-	!window.matchMedia("(pointer:fine)").matches;
-
 export const getFontSize = (length: number): string | number => {
 	let MOBILE_DIVIDER = 1;
 
@@ -33,10 +28,7 @@ export const getFontSize = (length: number): string | number => {
 	if (length > 45 && isMobile) {
 		return `${1.75 / MOBILE_DIVIDER}rem`;
 	}
-	if (length > 45) {
-		return `${2 / MOBILE_DIVIDER}rem`;
-	}
-	return `${2.1 / MOBILE_DIVIDER}rem`;
+	return `${2 / MOBILE_DIVIDER}rem`;
 };
 
 /*********************************************************************************

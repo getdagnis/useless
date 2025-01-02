@@ -6,6 +6,7 @@ import { getFontSize } from "@/src/helpers";
 import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
+import { get } from "http";
 
 interface SliderProps {}
 
@@ -102,20 +103,27 @@ const Slider: React.FC<SliderProps> = () => {
 					</h1>
 				)}
 			</div>
-			{!isLastSlide && <Sticker text={TOP_10_STICKERS[activeSlide].text} fontSize={fontSize} />}
+			{!isLastSlide && (
+				<div key={activeSlide} className={styles.stickerWrapper}>
+					<Sticker
+						text={TOP_10_STICKERS[activeSlide].text}
+						fontSize={getFontSize(TOP_10_STICKERS[activeSlide].text.length)}
+					/>
+				</div>
+			)}
 
 			{isLastSlide && (
-				<div className={styles.buttonWrapper}>
+				<div className={styles.stickerWrapper}>
 					<div className={styles.button}>Buy Now</div>
 					<div className={styles.button}>Overthink Later</div>
 				</div>
 			)}
 
-			{!isFirstLastSlide && !isMobile && (
+			{!isLastSlide && !isMobile && (
 				<div className={styles.arrowContainer} onClick={handleNextSlide}></div>
 			)}
 
-			{!isFirstLastSlide && !isMobile && (
+			{!isFirstSlide && !isMobile && (
 				<div className={styles.arrowContainerLeft} onClick={handlePrevSlide}></div>
 			)}
 
@@ -128,6 +136,8 @@ const Slider: React.FC<SliderProps> = () => {
 					></li>
 				))}
 			</ul>
+
+			<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
 		</div>
 	);
 };
