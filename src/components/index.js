@@ -1,4 +1,5 @@
-import Slider from './slider';
-import Header from './header';
+import Slider from "./Slider";
+import Header from "./Header";
+import Button from "./Button";
 
-export { Slider, Header };
+export { Slider, Header, Button };

@@ -1,5 +1,5 @@
 import "./globals.sass";
-import { STICKERS, TOP_10_STICKERS } from "../src/constants";
+import { GPT_STICKERS, STICKERS, TOP_10_STICKERS } from "../src/constants";
 import { logStickersSortedByLength } from "../src/helpers";
 
 export const metadata = {
@@ -8,8 +8,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  console.log("🍌🥕 ", logStickersSortedByLength(STICKERS));
-  console.log("🍌🥕 ", logStickersSortedByLength(TOP_10_STICKERS));
+  // console.log("🍌🥕 ", logStickersSortedByLength(STICKERS));
+  // console.log("🍌🥕 ", logStickersSortedByLength(TOP_10_STICKERS));
+  // console.log("🍌🥕 GPT Stickers", logStickersSortedByLength(GPT_STICKERS));
 
   return (
     <html lang="en">

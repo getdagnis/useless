@@ -56,6 +56,7 @@ const Slider = () => {
       return;
     });
   }, []);
+  console.log("🍌🥕 activeSlide", activeSlide);
 
   return (
     <div className={styles.slider}>
@@ -66,10 +67,18 @@ const Slider = () => {
           </h1>
         ))}
       </div>
+      {activeSlide !== HERO_TITLES.length - 1 && (
+        <div className={styles.sticker} style={{ fontSize: getFontSize("mvay") }}>
+          {TOP_10_STICKERS[activeSlide].text}
+        </div>
+      )}
 
-      <div className={styles.sticker} style={{ fontSize: getFontSize("mvay") }}>
-        {getSticker(STICKERS, "mvay").text}
-      </div>
+      {activeSlide === HERO_TITLES.length - 1 && (
+        <div className={styles.buttonWrapper}>
+          <div className={styles.button}>Buy Now</div>
+          <div className={styles.button}>Overthink Later</div>
+        </div>
+      )}
 
       {activeSlide !== HERO_TITLES.length - 1 && (
         <div className={styles.arrowContainer} onClick={handleNextSlide}></div>
