@@ -112,7 +112,7 @@ const Slider: React.FC<SliderProps> = () => {
 						key={activeSlide}
 						className={styles.stickerWrapper}
 						style={{
-							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8) * 1000}ms`,
+							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8.5) * 1000}ms`,
 						}}
 					>
 						<Sticker
