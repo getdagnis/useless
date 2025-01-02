@@ -10,7 +10,7 @@ export const HERO_TITLES: string[][] = [
 		"COMPLETELY USELESS.",
 	],
 	["Let Us Introduce The Stickers ", "You Never Knew You Didn’t Need."],
-	["Every Single One Of Them ", "Is Pointless, Useless, and", " We Are Even Proud Of It."],
+	["Every Single One Of Them ", "Is Pointless, Useless, and", " We Are Not Even Proud Of It."],
 	["Some Say They’re Greatly Overpriced... ", "But Honestly—Why Not...?"],
 	["Satisfaction? Who Needs It? ", "We are famous for zero ", "satisfaction guarantee."],
 	["With our stickers we strive ", "to be Annoying, Ridiculous", "and Completely Irresistible."],
@@ -109,12 +109,12 @@ export const STICKERS: StickerProps[] = [
 ];
 
 export const TOP_10_STICKERS: StickerProps[] = [
-	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE FOUND THE DOOR." },
 	{ id: "xjug", text: "IN CASE OF EMERGENCY LICK THIS STICKER TO ESCAPE." },
+	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. IT COULD BE SLEEPING." },
+	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE FOUND THE DOOR." },
 	{ id: "ywfr", text: "PLEASE WAIT HERE UNTIL I HAVE TIME FOR YOUR BULLSHIT." },
 	{ id: "fnzm", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. UNLESS THEY ASK FOR IT." },
 	{ id: "fsud", text: "THINK OF SOMETHING SAD LIKE A BABY SHARK BEING EATEN BY A KITTEN." },
-	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. IT COULD BE SLEEPING." },
 	{ id: "eklf", text: "IN CASE OF A WET FLOOR PLEASE KEEP CALM AND SWIM TO SAFETY." },
 	{ id: "eood", text: "INSTRUCTIONS ON THIS STICKER CAN BE MISLEADING." },
 	{ id: "bdve", text: "CALM YOUR MIND AND LISTEN TO A STICKER SINGING." },

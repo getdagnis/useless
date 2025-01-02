@@ -78,66 +78,78 @@ const Slider: React.FC<SliderProps> = () => {
 	const fontSize = getFontSize(HERO_TITLES[0].length);
 
 	return (
-		<div className={styles.slider} {...handlers}>
-			<div className={styles.sliderText}>
-				{!isMobile &&
-					HERO_TITLES[activeSlide].map((title, index) => (
+		<div className={styles.container}>
+			<div className={styles.slider} {...handlers}>
+				{/* HERO TITLES */}
+				<div className={styles.sliderText}>
+					{!isMobile &&
+						HERO_TITLES[activeSlide].map((title, index) => (
+							<h1
+								key={`${activeSlide}-${index}`}
+								style={{
+									animationDelay: `${index * 400}ms`,
+									fontSize: fontSize,
+								}}
+							>
+								{title}
+							</h1>
+						))}
+					{isMobile && (
 						<h1
-							key={`${activeSlide}-${index}`}
 							style={{
-								animationDelay: `${index * 400}ms`,
+								animationDelay: `400ms`,
 								fontSize: fontSize,
 							}}
 						>
-							{title}
+							{combinedTitles}
 						</h1>
-					))}
-				{isMobile && (
-					<h1
+					)}
+				</div>
+
+				{/* STICKER */}
+				{!isLastSlide && (
+					<div
+						key={activeSlide}
+						className={styles.stickerWrapper}
 						style={{
-							animationDelay: `400ms`,
-							fontSize: fontSize,
+							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8) * 1000}ms`,
 						}}
 					>
-						{combinedTitles}
-					</h1>
+						<Sticker
+							text={TOP_10_STICKERS[activeSlide].text}
+							fontSize={getFontSize(TOP_10_STICKERS[activeSlide].text.length)}
+						/>
+					</div>
 				)}
+
+				{/* BUTTONS */}
+				{isLastSlide && (
+					<div className={styles.stickerWrapper}>
+						<div className={styles.button}>Buy Now</div>
+						<div className={styles.button}>Overthink Later</div>
+					</div>
+				)}
+
+				{/* ARROWS */}
+				{!isLastSlide && !isMobile && (
+					<div className={styles.arrowContainer} onClick={handleNextSlide}></div>
+				)}
+				{!isFirstSlide && !isMobile && (
+					<div className={styles.arrowContainerLeft} onClick={handlePrevSlide}></div>
+				)}
+
+				{/* PAGINATION */}
+				<ul className={styles.pagination}>
+					{[...Array(HERO_TITLES.length)].map((_, index) => (
+						<li
+							key={index}
+							className={index === activeSlide ? styles.active : ""}
+							onClick={() => setActiveSlide(index)}
+						></li>
+					))}
+				</ul>
+				<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
 			</div>
-			{!isLastSlide && (
-				<div key={activeSlide} className={styles.stickerWrapper}>
-					<Sticker
-						text={TOP_10_STICKERS[activeSlide].text}
-						fontSize={getFontSize(TOP_10_STICKERS[activeSlide].text.length)}
-					/>
-				</div>
-			)}
-
-			{isLastSlide && (
-				<div className={styles.stickerWrapper}>
-					<div className={styles.button}>Buy Now</div>
-					<div className={styles.button}>Overthink Later</div>
-				</div>
-			)}
-
-			{!isLastSlide && !isMobile && (
-				<div className={styles.arrowContainer} onClick={handleNextSlide}></div>
-			)}
-
-			{!isFirstSlide && !isMobile && (
-				<div className={styles.arrowContainerLeft} onClick={handlePrevSlide}></div>
-			)}
-
-			<ul className={styles.pagination}>
-				{[...Array(HERO_TITLES.length)].map((_, index) => (
-					<li
-						key={index}
-						className={index === activeSlide ? styles.active : ""}
-						onClick={() => setActiveSlide(index)}
-					></li>
-				))}
-			</ul>
-
-			<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
 		</div>
 	);
 };

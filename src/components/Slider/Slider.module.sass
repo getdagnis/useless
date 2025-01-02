@@ -1,9 +1,26 @@
-
 .slider
   display: flex
+  min-height: 50vh
   flex-direction: column
   justify-content: center
   align-items: center
+
+.sliderBg
+  position: fixed
+  width: 100vw
+  height: 100svh
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  overflow: hidden
+  font-size: 65rem
+  color: red
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #00000009
+  z-index: -1
+  contain: layout
 
 .sliderText
   left: 0
@@ -16,12 +33,13 @@
   min-height: 11rem
 
 .slider h1
-  animation: slideInFromLeft 0.5s ease-in-out
   animation-fill-mode: backwards
   text-transform: uppercase
   user-select: none
   width: fit-content
   height: fit-content
+  animation: slideInRight 0.5s linear
+  animation-fill-mode: backwards
 
 .slider h1, .sliderBg
   text-align: center
@@ -30,28 +48,57 @@
   text-transform: uppercase
   user-select: none
 
-.sliderBg
-  position: absolute
-  font-size: 65rem
-  color: red
-  display: flex
-  justify-content: center
-  align-items: center
-  color: #00000009
-  z-index: -1
-
 .stickerWrapper
-  animation: fadeIn 0.5s ease-in-out 3s
+  animation: dropAnimation 0.3s ease 4s
   animation-fill-mode: backwards
 
-@keyframes slideInFromLeft
+@keyframes zoomIn
   0%
-    transform: translateX(-20%)
+    opacity: 0
+    transform: scale(0)
+    rotate: 20deg
+  60%, 90%
+    opacity: 1
+    scale: 0.70
+    rotate: 0deg
+  85%
+    transform: scale(1.30)
+    rotate: 5deg
+  100%
+    opacity: 1
+    transform: scale(1)
+
+@keyframes dropAnimation
+  0%
+    opacity: 0
+    transform: scale(50)
+    rotate: 50deg
+  60%, 90%
+    opacity: 1
+    scale: 0.70
+  85%
+    transform: scale(1.30)
+  100%
+    opacity: 1
+    transform: scale(1)
+
+@keyframes slideInRight
+  0%
+    transform: translateX(20%)
     opacity: 0
 
   100%
     transform: translateX(0)
     opacity: 1
+
+    @keyframes slideOutLeft
+      0%
+        transform: translateX(-20%)
+        opacity: 0
+
+      100%
+        transform: translateX(0)
+        opacity: 1
 
 @keyframes fadeIn
   0%
