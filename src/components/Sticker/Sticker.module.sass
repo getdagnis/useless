@@ -1,0 +1,41 @@
+@use '../../styles/variables'
+$stickerSizeMultiplier: 3.5
+$stickerPosition: 12
+
+.sticker
+  text-align: center
+  font-weight: 600
+  line-height: 1.1
+  text-transform: uppercase
+  user-select: none
+  font-size: 2rem
+  bottom: calc($stickerPosition * 1rem)
+  background: white
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  padding: 1rem 2rem
+  width: fit-content
+  height: fit-content
+  min-height: calc(34px * $stickerSizeMultiplier)
+  border: 1px solid darkred
+  box-shadow: 2px 6px 0px rgba(0, 0, 0, 0.25)
+  border-radius: calc( 4px * $stickerSizeMultiplier)
+  letter-spacing: -0.3px
+  color: red
+  @media screen and (min-height: 735px) and (min-width: 1440px)
+    bottom: calc($stickerPosition * 1.1rem)
+    width: calc(154px * $stickerSizeMultiplier * 1.1)
+    height: calc(34px * $stickerSizeMultiplier * 1.1)
+    font-size: 2rem
+  @media screen and (max-width: 480px)
+
+@keyframes slideInFromLeft
+  0%
+    transform: translateX(-20%)
+    opacity: 0
+
+  100%
+    transform: translateX(0)
+    opacity: 1

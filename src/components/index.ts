@@ -1,5 +1,3 @@
-import Button from "./Button";
-import Slider from "./Slider";
-
-export { Slider, Button };
+export { Slider } from "./Slider";
+export { Button } from "./Button";
 export {Sticker} from './Sticker';
