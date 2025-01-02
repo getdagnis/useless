@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import styles from "./slider.module.sass";
+import styles from "./Slider.module.sass";
 import { HERO_TITLES, TOP_10_STICKERS, STICKERS } from "../constants";
 import { getSticker } from "../helpers";
 
@@ -33,7 +33,7 @@ const Slider = () => {
     console.log("🍌🥕 sticker", sticker);
 
     if (length > 64) {
-      return `1.8rem`;
+      return `1.7rem`;
     }
 
     if (length > 58) {

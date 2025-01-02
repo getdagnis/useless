@@ -1,4 +1,9 @@
-export function logStickersSortedByLength(stickers) {
+interface Sticker {
+  id: string;
+  text: string;
+}
+
+export function logStickersSortedByLength(stickers: Sticker[]): void {
   if (!stickers || stickers.length === 0) {
     console.warn("No stickers available.");
     return;
@@ -12,7 +17,7 @@ export function logStickersSortedByLength(stickers) {
   });
 }
 
-export function getSticker(stickers, id) {
+export function getSticker(stickers: Sticker[], id: string): Sticker | undefined {
   if (!stickers || stickers.length === 0) {
     console.warn("No stickers available.");
     return;
@@ -28,7 +33,7 @@ export function getSticker(stickers, id) {
   }
 }
 
-export function getStickerId(stickers, text) {
+export function getStickerId(stickers: Sticker[], text: string): string | undefined {
   if (!stickers || stickers.length === 0) {
     console.warn("No stickers available.");
     return;
@@ -44,7 +49,7 @@ export function getStickerId(stickers, text) {
   }
 }
 
-export function getStickerIndex(stickers, id) {
+export function getStickerIndex(stickers: Sticker[], id: string): number | undefined {
   if (!stickers || stickers.length === 0) {
     console.warn("No stickers available.");
     return;
@@ -60,7 +65,7 @@ export function getStickerIndex(stickers, id) {
   }
 }
 
-export function getStickerByIndex(stickers, index) {
+export function getStickerByIndex(stickers: Sticker[], index: number): Sticker | undefined {
   if (!stickers || stickers.length === 0) {
     console.warn("No stickers available.");
     return;

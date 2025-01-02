@@ -1,4 +1,9 @@
-export const HERO_TITLES = [
+interface Sticker {
+  id: string;
+  text: string;
+}
+
+export const HERO_TITLES: string[][] = [
   [
     "FINALLY YOU HAVE A CHANCE TO CAUSE ",
     "PUBLIC CONFUSION BY BUYING SOMETHING ",
@@ -30,7 +35,7 @@ export const ABOUT = [
   },
 ];
 
-export const STICKERS = [
+export const STICKERS: Sticker[] = [
   { id: "vuuz", text: "IN CASE OF EMERGENCY BREAK THIS WALL TO ESCAPE" },
   { id: "egio", text: "WHAT HAPPENS IN THIS BATH-ROOM, STAYS IN THIS BATH-ROOM." },
   { id: "mpht", text: "UNDER NO CIRCUMSTANCES OPEN THE DOOR TO THIS SECRET CHAMBER." },
@@ -103,7 +108,7 @@ export const STICKERS = [
   { id: "eklf", text: "IN CASE OF A WET FLOOR PLEASE KEEP CALM AND SWIM TO SAFETY" },
 ];
 
-export const TOP_10_STICKERS = [
+export const TOP_10_STICKERS: Sticker[] = [
   { id: "fsud", text: "THINK OF SOMETHING SAD LIKE A BABY SHARK BEING EATEN BY A KITTEN." },
   { id: "ybkn", text: "CONGRATULATIONS! YOU HAVE FOUND THE DOOR." },
   { id: "xjug", text: "IN CASE OF EMERGENCY LICK THIS STICKER TO ESCAPE." },
@@ -115,7 +120,7 @@ export const TOP_10_STICKERS = [
   { id: "bdve", text: "CALM YOUR MIND AND LISTEN TO A STICKER SINGING." },
 ];
 
-export const GPT_STICKERS = [
+export const GPT_STICKERS: Sticker[] = [
   { id: "XRCJ", text: "THIS SPACE RESERVED FOR INVISIBLE CARS." },
   { id: "YWBD", text: "PLEASE DO NOT ARGUE WITH THIS SIGN. IT ALWAYS WINS." },
   { id: "OGZT", text: "IN CASE OF DOUBT, BLAME THE PERSON BEHIND YOU." },

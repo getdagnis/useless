@@ -1,7 +1,11 @@
+import React from "react";
+import { Header } from "../layout";
+import { Slider } from "../components";
 import styles from "./page.module.sass";
-import { Header, Slider } from "../src/components/";
 
-export default function Home() {
+type Props = {};
+
+const Page = (props: Props) => {
   return (
     <div className={styles.page}>
       <Header />
@@ -11,4 +15,6 @@ export default function Home() {
       <footer className={styles.footer}></footer>
     </div>
   );
-}
+};
+
+export default Page;

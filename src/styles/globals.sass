@@ -1,12 +1,10 @@
+@import '../styles/variables.sass'
+
 @font-face
   font-family: 'DIN Alternate'
   src: url('/din1451alt.ttf') format('truetype')
   font-weight: normal
   font-style: normal
-
-:root
-  --background: #e2001a
-  --foreground: white
 
 html,
 body
@@ -15,8 +13,8 @@ body
   user-select: none
 
 body
-  color: var(--foreground)
-  background: var(--background)
+  color: white
+  background: $red
   font-family: 'DIN Alternate', Arial, Helvetica, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale

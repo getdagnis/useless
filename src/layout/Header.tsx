@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "./header.module.sass";
+import styles from "./Header.module.sass";
 
-const Header = () => {
+interface Props {}
+
+const Header = (props: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleHamburgerClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,18 +19,16 @@ const Header = () => {
       document.body.style.overflow = "auto";
     }
 
-    addEventListener("keydown", (event) => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false);
       }
-    });
+    };
+
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-      removeEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          setIsMenuOpen(false);
-        }
-      });
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isMenuOpen]);
 
