@@ -51,7 +51,7 @@
   display: flex
   justify-content: center
   align-items: center
-  color: #00000009
+  color: #00000011
   z-index: -1
   contain: layout
 
@@ -62,6 +62,9 @@
   text-align: center
   animation: slideInRight 0.5s linear
   animation-fill-mode: backwards
+  letter-spacing: 1px
+  @media (max-width: 600px)
+    letter-spacing: -0.5px
 
 .slider h1, .sliderBg
   text-align: center
@@ -97,13 +100,14 @@
   display: block
   width: 3rem
   height: 4rem
-  opacity: 1
+  opacity: 0
   translate: -50% 0
   transition: opacity 0.3s ease-in-out, translate 0.3s ease-in-out
   background: url('/arrow-white.svg') no-repeat center center
-  @media (any-hover: hover)
-    cursor: pointer
-    opacity: 0
+  // TODO: enable on launch and above value is 1 then
+  // @media (any-hover: hover) 
+  //   cursor: pointer
+  //   opacity: 0
 
 .arrowContainerLeft::after
   rotate: 180deg

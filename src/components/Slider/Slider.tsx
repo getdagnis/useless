@@ -5,11 +5,12 @@ import styles from "./Slider.module.sass";
 import { HERO_TITLES, TOP_10_STICKERS } from "@/src/constants";
 import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
-import { BrowserView, isMobile, MobileView } from "react-device-detect";
+import { isMobile } from "react-device-detect";
+import { useDeviceSize } from "react-device-sizes";
 
 interface SliderProps {}
 
-const config = {
+const swipeableConfig = {
 	delta: 10, // min distance(px) before a swipe is detected
 	preventDefaultTouchmoveEvent: true,
 	trackTouch: true,
@@ -24,11 +25,19 @@ const Slider: React.FC<SliderProps> = () => {
 	combinedTitlesArray.push(heroTitles.flatMap((title) => title).join(" "));
 
 	const isFirstSlide = activeSlide === 0;
-	const isLastSlide = activeSlide === heroTitles.length;
+	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
 
 	const stickerLength = TOP_10_STICKERS[activeSlide].text.length;
-	const animationDelay = (stickerLength / 11) * 1000;
-	const fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
+	const animationDelay = (stickerLength / 12) * 1000;
+	let fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
+
+	console.log("🥖🥖🇫🇷🇫🇷 isLastSlide", isLastSlide);
+	console.log("🥖🥖🇫🇷🇫🇷 heroTitles.length - 1;", heroTitles.length - 1);
+	console.log("🥖🥖🇫🇷🇫🇷 activeSlide", activeSlide);
+
+	const deviceSizes = useDeviceSize();
+	fontSize = deviceSizes.xsDown ? "1.5rem" : fontSize;
+	console.log("🥖🥖🇫🇷🇫🇷 deviceSizes", deviceSizes);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -50,7 +59,7 @@ const Slider: React.FC<SliderProps> = () => {
 			eventData.dir === "Right" && !isFirstSlide && handleSlideClick("Left");
 			eventData.dir === "Left" && !isLastSlide && handleSlideClick("Right");
 		},
-		...config,
+		...swipeableConfig,
 	});
 
 	const handleSlideClick = (side: string) => {
@@ -68,8 +77,8 @@ const Slider: React.FC<SliderProps> = () => {
 			<div className={styles.slider} {...handlers}>
 				{/* HERO TITLES */}
 				<div className={styles.sliderText}>
-					<BrowserView>
-						{HERO_TITLES[activeSlide].map((title, index) => (
+					{!deviceSizes.xsDown &&
+						HERO_TITLES[activeSlide].map((title, index) => (
 							<h1
 								key={`${activeSlide}-${index}`}
 								style={{
@@ -80,9 +89,8 @@ const Slider: React.FC<SliderProps> = () => {
 								{title}
 							</h1>
 						))}
-					</BrowserView>
 
-					<MobileView>
+					{isMobile && deviceSizes.xsDown && (
 						<h1
 							style={{
 								animationDelay: `0.4ms`,
@@ -91,7 +99,7 @@ const Slider: React.FC<SliderProps> = () => {
 						>
 							{combinedTitlesArray}
 						</h1>
-					</MobileView>
+					)}
 				</div>
 
 				{/* STICKER */}

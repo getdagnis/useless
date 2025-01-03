@@ -163,16 +163,18 @@ $paddingTop: 2rem
 
   & li
     position: relative
-    display: none
+    display: block
     font-size: 1.75rem
     cursor: pointer
-    width: auto
+    width: fit-content
     font-weight: 500
     text-transform: uppercase
     list-style: none
     margin-bottom: 0.5rem
+    letter-spacing: 0.5px
     @media (max-width: 1024px) or (max-aspect-ratio: 1/1)
       font-size: 1.5rem
+      letter-spacing: -0.5px
     &::after,
     &:hover::after
       content: ''

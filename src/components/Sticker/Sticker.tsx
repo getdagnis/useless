@@ -14,8 +14,6 @@ export function Sticker({ text, fontSize }: StickerComponentProps) {
 		return null;
 	}
 
-	console.log("🥖🥖🇫🇷🇫🇷 sticker.length", text.length);
-
 	return (
 		<div className={styles.sticker} style={{ fontSize: fontSize }}>
 			{text}

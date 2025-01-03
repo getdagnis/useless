@@ -1,3 +1,5 @@
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap')
+
 $red: #e2001a
 $lightRed: #ff001e
 $darkRed: #ff1732
@@ -17,11 +19,13 @@ body
 body
   color: white
   background: $red
-  font-family: 'DIN Alternate', Arial, Helvetica, sans-serif
+  font-family: 'DIN Alternate', Roboto, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   font-kerning: none
-  letter-spacing: 0.5px
+  @media screen and (max-width: 768px)
+    font-family: Roboto, Helvetica, Arial, sans-serif
+    font-weight: bold
 
 *
   box-sizing: border-box
