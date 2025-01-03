@@ -1,1 +1,68 @@
 
+.button, .iconButton, .isSecondary, .isPrimary
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 0.5rem 1rem
+  font-size: 1.2rem
+  font-weight: 600
+  text-transform: uppercase
+  color: white
+  border: 1px solid white
+  border-radius: 0.25rem
+  cursor: pointer
+  margin: 0.5rem
+  transition: background 0.4s ease-in, color 0.8s ease-in, transform 0.3s ease
+
+  &.isPrimary
+    background: gray
+    color: white
+
+  &.isSecondary
+    background: none
+    color: white
+    transition: translate 0.2s ease
+
+  &:hover
+    background: black
+    color: white
+    rotate: 360deg
+    scale: 1.2
+    transition: background 0.6s ease, color 0.3s ease-in, rotate 2s ease, scale 0.5s ease 1.9s
+    animation: vibrate-1 0.3s linear infinite both
+    animation-delay: 3.5s
+
+  &.isSecondary:hover
+    background: none
+    transform: rotate(0)
+    scale: 1
+    animation: none
+
+  &:active
+    transform: scale(100)
+    transition: all 0.5s ease
+
+  &.isSecondary:active
+    scale: 0
+    transition: scale 0.1s ease-out
+    animation: none
+
+  &.isIconButton
+    span
+      width: 1rem
+      height: 1rem
+      margin: 0.5rem
+
+  @keyframes vibrate-1
+    0%
+      translate: 0
+    20%
+      translate: -2px 2px
+    40%
+      translate: -2px -2px
+    60%
+      translate: 2px 2px
+    80%
+      translate: 2px -2px
+    100%
+      translate: 0

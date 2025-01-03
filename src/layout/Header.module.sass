@@ -136,7 +136,7 @@ $paddingTop: 2rem
   gap: 1rem
   top: 0
   right: 0
-  padding: 6rem 0 3rem
+  padding: 3rem 0
   width: 20%
   min-width: 16rem
   background: black
@@ -159,7 +159,8 @@ $paddingTop: 2rem
     display: flex
     flex-direction: column
     overflow: hidden
-    margin-left: 3rem
+    margin-left: 2rem
+    padding: 2rem 0
 
   & li
     position: relative
@@ -172,9 +173,14 @@ $paddingTop: 2rem
     list-style: none
     margin-bottom: 0.5rem
     letter-spacing: 0.5px
+    background: black
+    transition: transform 1s ease
     @media (max-width: 1024px) or (max-aspect-ratio: 1/1)
       font-size: 1.5rem
       letter-spacing: -0.5px
+    &:hover
+      transform: rotate(180deg)
+      z-index: 9999
     &::after,
     &:hover::after
       content: ''
@@ -185,8 +191,8 @@ $paddingTop: 2rem
       height: 3px
       background-color: white
       margin-top: 0.2rem
-      transform: translateX(calc(-100% - 3rem))
-      transition: transform 0.3s ease-in-out
+      transform: translateX(calc(1000% - 3rem))
+      transition: transform 1s ease-in-out
     &:hover::after
       transform: translateX(0)
     &::after

@@ -51,22 +51,6 @@ const Slider: React.FC<SliderProps> = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		const overthinkLaterButton = document.getElementById("overthinkLater");
-
-		if (overthinkLaterButton) {
-			const handleMouseOver = () => randomTranslateButton(overthinkLaterButton);
-
-			overthinkLaterButton.addEventListener("mouseenter", handleMouseOver);
-			overthinkLaterButton.addEventListener("mouseover", handleMouseOver);
-
-			return () => {
-				overthinkLaterButton.removeEventListener("mouseenter", handleMouseOver);
-				overthinkLaterButton.removeEventListener("mouseover", handleMouseOver);
-			};
-		}
-	}, []);
-
 	const handlers = useSwipeable({
 		onSwiped: (eventData) => {
 			eventData.dir === "Right" && !isFirstSlide && handleSlideClick("Left");
