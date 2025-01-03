@@ -156,24 +156,29 @@ $paddingTop: 2rem
       text-align: right
 
   & ul
+    display: flex
+    flex-direction: column
     overflow: hidden
     margin-left: 3rem
 
   & li
     position: relative
-    font-size: 2.5rem
+    display: none
+    font-size: 1.75rem
     cursor: pointer
     width: auto
+    font-weight: 500
+    text-transform: uppercase
     list-style: none
     margin-bottom: 0.5rem
     @media (max-width: 1024px) or (max-aspect-ratio: 1/1)
-      font-size: 2rem
+      font-size: 1.5rem
     &::after,
     &:hover::after
       content: ''
       position: absolute
-      display: block
       bottom: 0
+      left: 0
       width: 100%
       height: 3px
       background-color: white

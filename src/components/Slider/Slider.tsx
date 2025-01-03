@@ -1,12 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import styles from "./Slider.module.sass";
 import { HERO_TITLES, TOP_10_STICKERS } from "@/src/constants";
-import { getFontSize } from "@/src/helpers";
 import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
-import { isMobile } from "react-device-detect";
-import { get } from "http";
+import { BrowserView, isMobile, MobileView } from "react-device-detect";
 
 interface SliderProps {}
 
@@ -19,11 +18,13 @@ const config = {
 
 const Slider: React.FC<SliderProps> = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
-	const [swipeDir, setSwipeDir] = useState(null);
 
-	const combinedTitles = HERO_TITLES[activeSlide].flatMap((title) => title).join(" ");
+	const heroTitles = HERO_TITLES[activeSlide];
+	const combinedTitlesArray = [];
+	combinedTitlesArray.push(heroTitles.flatMap((title) => title).join(" "));
+
 	const isFirstSlide = activeSlide === 0;
-	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
+	const isLastSlide = activeSlide === heroTitles.length;
 
 	const stickerLength = TOP_10_STICKERS[activeSlide].text.length;
 	const animationDelay = (stickerLength / 11) * 1000;
@@ -44,18 +45,10 @@ const Slider: React.FC<SliderProps> = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		if (swipeDir === "Right") {
-			handleSlideClick("Right");
-		} else if (swipeDir === "Left") {
-			handleSlideClick("Left");
-		}
-	}, [swipeDir]);
-
 	const handlers = useSwipeable({
 		onSwiped: (eventData) => {
-			eventData.dir === "Right" && !isFirstSlide && handlePrevSlide();
-			eventData.dir === "Left" && !isLastSlide && handleNextSlide();
+			eventData.dir === "Right" && !isFirstSlide && handleSlideClick("Left");
+			eventData.dir === "Left" && !isLastSlide && handleSlideClick("Right");
 		},
 		...config,
 	});
@@ -75,8 +68,8 @@ const Slider: React.FC<SliderProps> = () => {
 			<div className={styles.slider} {...handlers}>
 				{/* HERO TITLES */}
 				<div className={styles.sliderText}>
-					{!isMobile &&
-						HERO_TITLES[activeSlide].map((title, index) => (
+					<BrowserView>
+						{HERO_TITLES[activeSlide].map((title, index) => (
 							<h1
 								key={`${activeSlide}-${index}`}
 								style={{
@@ -87,16 +80,18 @@ const Slider: React.FC<SliderProps> = () => {
 								{title}
 							</h1>
 						))}
-					{/* {isMobile && (
+					</BrowserView>
+
+					<MobileView>
 						<h1
 							style={{
-								animationDelay: `400ms`,
+								animationDelay: `0.4ms`,
 								fontSize: fontSize,
 							}}
 						>
-							{combinedTitles}
+							{combinedTitlesArray}
 						</h1>
-					)} */}
+					</MobileView>
 				</div>
 
 				{/* STICKER */}
