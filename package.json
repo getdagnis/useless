@@ -15,7 +15,8 @@
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",
-    "react-swipeable": "^7.0.2"
+    "react-swipeable": "^7.0.2",
+    "react-viewport-utils": "^2.0.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",

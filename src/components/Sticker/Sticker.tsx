@@ -2,7 +2,6 @@
 import React from "react";
 
 import styles from "./Sticker.module.sass";
-import { getFontSize } from "@/src/helpers";
 
 export interface StickerComponentProps {
 	text: string;

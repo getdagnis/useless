@@ -28,6 +28,8 @@
   justify-content: center
   align-items: center
   padding: 1rem 0
+  animation: dropAnimation 0.3s ease 4s // delay only for the last slide, others dynamically in js
+  animation-fill-mode: backwards
 
 .paginationWrapper
   display: flex
@@ -150,10 +152,6 @@
   100%
     opacity: 1
     transform: scale(1)
-
-.stickerWrapper
-  animation: dropAnimation 0.3s ease 5s
-  animation-fill-mode: backwards
 
 @keyframes dropAnimation
   0%

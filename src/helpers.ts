@@ -1,4 +1,3 @@
-import { isMobile } from "react-device-detect";
 import { StickerProps } from "../src/constants";
 
 /*********************************************************************************
@@ -6,29 +5,11 @@ import { StickerProps } from "../src/constants";
  *********************************************************************************/
 
 export const getFontSize = (length: number): string | number => {
-	let MOBILE_DIVIDER = 1;
+	const fontSize = length / 25 + "rem";
+	console.log("fontSize: ", fontSize);
+	console.log("length: ", length);
 
-	if (isMobile) {
-		console.log("🥖🥖🇫🇷🇫🇷 is mobile");
-		MOBILE_DIVIDER = 1.25;
-	}
-
-	if (length >= 65) {
-		return `${1.7 / MOBILE_DIVIDER}rem`;
-	}
-	if (length > 60) {
-		return `${1.8 / MOBILE_DIVIDER}rem`;
-	}
-	if (length > 50 && isMobile) {
-		return `${1.6 / MOBILE_DIVIDER}rem`;
-	}
-	if (length > 50) {
-		return `${1.9 / MOBILE_DIVIDER}rem`;
-	}
-	if (length > 45 && isMobile) {
-		return `${1.75 / MOBILE_DIVIDER}rem`;
-	}
-	return `${2 / MOBILE_DIVIDER}rem`;
+	return fontSize;
 };
 
 /*********************************************************************************

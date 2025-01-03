@@ -21,25 +21,24 @@ const Slider: React.FC<SliderProps> = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
 	const [swipeDir, setSwipeDir] = useState(null);
 
+	const combinedTitles = HERO_TITLES[activeSlide].flatMap((title) => title).join(" ");
 	const isFirstSlide = activeSlide === 0;
 	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
-	const isFirstLastSlide = isFirstSlide || isLastSlide;
 
-	const combinedTitles = HERO_TITLES[activeSlide].flatMap((title) => title).join(" ");
+	const stickerLength = TOP_10_STICKERS[activeSlide].text.length;
+	const animationDelay = (stickerLength / 11) * 1000;
+	const fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "ArrowRight" || event.key === "Enter" || event.key === " ") {
-				handleNextSlide();
+				handleSlideClick("Right");
 			}
-
 			if (event.key === "ArrowLeft") {
-				handlePrevSlide();
+				handleSlideClick("Left");
 			}
 		};
-
 		document.addEventListener("keydown", handleKeyDown);
-
 		return () => {
 			document.removeEventListener("keydown", handleKeyDown);
 		};
@@ -47,9 +46,9 @@ const Slider: React.FC<SliderProps> = () => {
 
 	useEffect(() => {
 		if (swipeDir === "Right") {
-			handleNextSlide();
+			handleSlideClick("Right");
 		} else if (swipeDir === "Left") {
-			handlePrevSlide();
+			handleSlideClick("Left");
 		}
 	}, [swipeDir]);
 
@@ -61,21 +60,15 @@ const Slider: React.FC<SliderProps> = () => {
 		...config,
 	});
 
-	useEffect(() => {
-		if (activeSlide === HERO_TITLES.length) {
-			alert("You have reached the end of the slider.");
+	const handleSlideClick = (side: string) => {
+		if (side === "Right" && !isLastSlide) {
+			setActiveSlide((prevSlide) => (prevSlide + 1 + HERO_TITLES.length) % HERO_TITLES.length);
 		}
-	}, [activeSlide]);
-
-	const handleNextSlide = () => {
-		setActiveSlide((prevSlide) => (prevSlide + 1 + HERO_TITLES.length) % HERO_TITLES.length);
+		if (side === "Left" && !isFirstSlide) {
+			setActiveSlide((prevSlide) => (prevSlide - 1 + HERO_TITLES.length) % HERO_TITLES.length);
+		}
+		return;
 	};
-
-	const handlePrevSlide = () => {
-		setActiveSlide((prevSlide) => (prevSlide - 1 + HERO_TITLES.length) % HERO_TITLES.length);
-	};
-
-	const fontSize = getFontSize(HERO_TITLES[0].length);
 
 	return (
 		<div className={styles.container}>
@@ -94,7 +87,7 @@ const Slider: React.FC<SliderProps> = () => {
 								{title}
 							</h1>
 						))}
-					{isMobile && (
+					{/* {isMobile && (
 						<h1
 							style={{
 								animationDelay: `400ms`,
@@ -103,7 +96,7 @@ const Slider: React.FC<SliderProps> = () => {
 						>
 							{combinedTitles}
 						</h1>
-					)}
+					)} */}
 				</div>
 
 				{/* STICKER */}
@@ -112,13 +105,10 @@ const Slider: React.FC<SliderProps> = () => {
 						key={activeSlide}
 						className={styles.stickerWrapper}
 						style={{
-							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8) * 1000}ms`,
+							animationDelay: `${animationDelay}ms`,
 						}}
 					>
-						<Sticker
-							text={TOP_10_STICKERS[activeSlide].text}
-							fontSize={getFontSize(TOP_10_STICKERS[activeSlide].text.length)}
-						/>
+						<Sticker text={TOP_10_STICKERS[activeSlide].text} fontSize={fontSize} />
 					</div>
 				)}
 
@@ -132,10 +122,10 @@ const Slider: React.FC<SliderProps> = () => {
 
 				{/* ARROWS */}
 				{!isLastSlide && !isMobile && (
-					<div className={styles.arrowContainer} onClick={handleNextSlide}></div>
+					<div className={styles.arrowContainer} onClick={() => handleSlideClick("Right")}></div>
 				)}
 				{!isFirstSlide && !isMobile && (
-					<div className={styles.arrowContainerLeft} onClick={handlePrevSlide}></div>
+					<div className={styles.arrowContainerLeft} onClick={() => handleSlideClick("Left")}></div>
 				)}
 
 				{/* PAGINATION */}
