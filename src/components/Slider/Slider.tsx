@@ -7,6 +7,7 @@ import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
 import { useDeviceSize } from "react-device-sizes";
+import { Button } from "../Button";
 
 interface SliderProps {}
 
@@ -27,17 +28,15 @@ const Slider: React.FC<SliderProps> = () => {
 	const isFirstSlide = activeSlide === 0;
 	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
 
-	const stickerLength = TOP_10_STICKERS[activeSlide].text.length;
-	const animationDelay = (stickerLength / 12) * 1000;
-	let fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
+	// Sticker appears around the time when message above has been read
+	const heroWords = combinedTitlesArray[0].split(" ").length;
+	const animationDelay = heroWords * 0.25;
 
-	console.log("🥖🥖🇫🇷🇫🇷 isLastSlide", isLastSlide);
-	console.log("🥖🥖🇫🇷🇫🇷 heroTitles.length - 1;", heroTitles.length - 1);
-	console.log("🥖🥖🇫🇷🇫🇷 activeSlide", activeSlide);
+	// Dynamic font size for longer stickers (to better fit actual designs)
+	let fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
 
 	const deviceSizes = useDeviceSize();
 	fontSize = deviceSizes.xsDown ? "1.5rem" : fontSize;
-	console.log("🥖🥖🇫🇷🇫🇷 deviceSizes", deviceSizes);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -108,7 +107,7 @@ const Slider: React.FC<SliderProps> = () => {
 						key={activeSlide}
 						className={styles.stickerWrapper}
 						style={{
-							animationDelay: `${animationDelay}ms`,
+							animationDelay: `${animationDelay}s`,
 						}}
 					>
 						<Sticker text={TOP_10_STICKERS[activeSlide].text} fontSize={fontSize} />
@@ -117,9 +116,17 @@ const Slider: React.FC<SliderProps> = () => {
 
 				{/* BUTTONS */}
 				{isLastSlide && (
-					<div className={styles.stickerWrapper}>
-						<div className={styles.button}>Buy Now</div>
-						<div className={styles.button}>Overthink Later</div>
+					<div className={styles.buttonWrapperWrapper}>
+						<h6>COMPLETELY USELESS BUTTONS</h6>
+						<div className={styles.buttonWrapper}>
+							<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
+							<Button
+								id="overthinkLater"
+								text="Overthink Later"
+								onClick={() => handleSlideClick("Down")}
+								isSecondary
+							/>
+						</div>
 					</div>
 				)}
 

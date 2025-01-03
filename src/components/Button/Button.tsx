@@ -1,11 +1,34 @@
-import React from 'react';
+import React from "react";
 
-import styles from './Button.module.sass';
+import styles from "./Button.module.sass";
 
 export interface ButtonProps {
-  prop?: string;
+	text: string;
+	onClick: () => void;
+	size?: "small" | "medium" | "large";
+	icon?: React.ReactNode;
+	isPrimary?: boolean;
+	isSecondary?: boolean;
+	id?: string;
 }
 
-export function Button({prop = 'default value'}: ButtonProps) {
-  return <div className={styles.Button}>Button {prop}</div>;
+export function Button({ text, icon, id, isPrimary, isSecondary, size, onClick }: ButtonProps) {
+	return (
+		<div
+			id={id}
+			className={
+				isPrimary
+					? `${styles.button} ${styles.isPrimary}`
+					: isSecondary
+					? `${styles.button} ${styles.isSecondary}`
+					: icon
+					? `${styles.button} ${styles.isIconButton}`
+					: styles.button
+			}
+			onMouseUp={onClick}
+		>
+			<span className={size ? size : "medium"}>{text}</span>{" "}
+			<span className={styles.icon}>{icon}</span>
+		</div>
+	);
 }

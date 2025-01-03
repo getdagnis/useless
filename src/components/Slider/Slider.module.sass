@@ -21,14 +21,14 @@
   align-items: center
   margin-top: 20vh
 
-.stickerWrapper
+.stickerWrapper, .buttonWrapperWrapper
   display: flex
   flex: 1
   flex-direction: column
   justify-content: center
   align-items: center
   padding: 1rem 0
-  animation: dropAnimation 0.3s ease 4s // delay only for the last slide, others dynamically in js
+  animation: dropAnimation 0.3s ease 4s // 4s delay only for the last slide, others dynamically in js
   animation-fill-mode: backwards
 
 .paginationWrapper
@@ -37,23 +37,22 @@
   flex-direction: column
   justify-content: flex-end
   padding: 1rem
+  z-index: 99
 
-.sliderBg
-  position: fixed
-  width: 100vw
-  height: 100svh
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-  overflow: hidden
-  font-size: 65rem
-  color: red
+.buttonWrapper
   display: flex
+  flex-direction: row
   justify-content: center
-  align-items: center
-  color: #00000011
-  z-index: -1
-  contain: layout
+  align-items: flex-start
+  z-index: 99
+
+.buttonWrapperWrapper >  h6
+  letter-spacing: 1px
+  font-weight: 400
+  margin-bottom: 0.5rem
+  margin-top: 0
+  animation: fadeIn 5s ease 7s
+  animation-fill-mode: backwards
 
 .slider h1
   animation-fill-mode: backwards
@@ -140,6 +139,23 @@
 .pagination li.active
   background: white
 
+.sliderBg
+  position: fixed
+  width: 100vw
+  height: 100svh
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  overflow: hidden
+  font-size: 50rem
+  color: red
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #00000011
+  z-index: -1
+  contain: layout
+
 @keyframes zoomIn
   0%
     opacity: 0
@@ -191,6 +207,5 @@
 @keyframes fadeIn
   0%
     opacity: 0
-
   100%
     opacity: 1

@@ -59,6 +59,7 @@ const Header = (props: Props) => {
 			</div>
 			<div className={`${styles.menu} ${isMenuOpen && styles["is-active"]}`}>
 				<ul>
+					<h6>COMPLETELY USELESS MENU</h6>
 					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Shop</li>
 					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Vote</li>
 					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Suggest</li>

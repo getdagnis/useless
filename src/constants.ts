@@ -110,9 +110,9 @@ export const STICKERS: StickerProps[] = [
 
 export const TOP_10_STICKERS: StickerProps[] = [
 	{ id: "xjug", text: "IN CASE OF EMERGENCY LICK THIS STICKER TO ESCAPE." },
-	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. IT COULD BE SLEEPING." },
-	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE FOUND THE DOOR." },
-	{ id: "ywfr", text: "PLEASE WAIT HERE UNTIL I HAVE TIME FOR YOUR BULLSHIT." },
+	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. {{br}}IT COULD BE SLEEPING." },
+	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE {{br}}FOUND THE DOOR." },
+	{ id: "ywfr", text: "PLEASE WAIT HERE UNTIL I HAVE {{br}}TIME FOR YOUR BULLSHIT." },
 	{ id: "fnzm", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. UNLESS THEY ASK FOR IT." },
 	{ id: "fsud", text: "THINK OF SOMETHING SAD LIKE A BABY SHARK BEING EATEN BY A KITTEN." },
 	{ id: "eklf", text: "IN CASE OF A WET FLOOR PLEASE KEEP CALM AND SWIM TO SAFETY." },
