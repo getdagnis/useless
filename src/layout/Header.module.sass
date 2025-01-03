@@ -1,62 +1,74 @@
 $paddingTop: 2rem
-$logoSizeMultiplier: 8
-
-.logo
-  position: absolute
-  left: $paddingTop
-  top: $paddingTop
-  width: calc($logoSizeMultiplier * 38.4px)
-  height: calc($logoSizeMultiplier * 18.4px)
-  padding: 0.4rem
-
-  @media screen and (max-width: 768px)
-    width: calc(8 * 38.4px)
-    height: calc(8 * 18.4px)
-
-  @media screen and (max-width: 480px)
-    width: calc(6 * 38.4px)
-    height: calc(6 * 18.4px)
-    top: 1rem
-    left: 1rem
-
-  @media screen and (max-width: 360px)
-    width: calc(5 * 38.4px)
-    height: calc(5 * 18.4px)
-
-    @media screen and (max-width: 290px)
-      width: calc(4 * 38.4px)
-      height: calc(4 * 18.4px)
 
 .header
   width: 100%
+  z-index: 99
+
+.logoContainer
+  position: fixed
+  top: 2rem
+  left: 2rem
+  display: flex
+  justify-content: flex-start
+  align-items: flex-start
+  z-index: 999
+  @media (max-width: 1024px) or (max-height: 700px)
+    top: 1.5rem
+    left: 1.5rem
+  @media (max-width: 600px) or (max-height: 480px)
+    top: 1rem
+    left: 1rem
+
+.logo
+  width: calc(500px / 2)
+  height: calc(250px / 2)
+  transition: all 0.3s ease
+  @media (max-width: 1024px) or (max-height: 700px)
+    width: calc(500px / 2.5)
+    height: calc(250px / 2.5)
+  @media (max-width: 600px) or (max-height: 480px)
+    width: calc(500px / 3)
+    height: calc(250px / 3)
+  @media (max-width: 310px) or (max-height: 450px)
+    width: calc(500px / 4)
+    height: calc(250px / 4)
+  @media (max-width: 210px) or (max-height: 300px)
+    width: calc(500px / 5)
+    height: calc(250px / 5)
 
 .hamburger
-  display: inline-block
+  display: flex
+  align-items: center
+  justify-content: center
   position: fixed
-  top: $paddingTop
-  right: $paddingTop
+  top: 2rem
+  right: 2rem
   text-align: right
-  padding: 3px 0
-  height: 30px
+  padding: 0
+  height: 28px
+  width: 34px
   cursor: pointer
   transition-property: opacity, filter
   transition-duration: 0.15s
   transition-timing-function: linear
   overflow: visible
   z-index: 999
-  @media (max-width: 480px)
-    transform: scale(0.9)
+  @media (max-width: 1024px) or (max-height: 700px)
+    top: 1.5rem
+    right: 1.5rem
+  @media (max-width: 600px) or (max-height: 480px)
     top: 1rem
     right: 1rem
-
-  @media (max-width: 320px)
-    transform: scale(0.6)
 
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after
   background-color: white
   transform: scale(1.1)
+
+.hamburger.is-active:hover
+  transform: rotateY(180deg)
+  transition: all 0.5s ease
 
 .hamburger-box
   width: 40px
@@ -92,11 +104,9 @@ $logoSizeMultiplier: 8
 
 .hamburger .hamburger-inner
   transition: background-color 0.125s 0.175s ease-in
-
   &::before
     left: 0
     transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335), top 0.05s 0.125s linear, left 0.125s 0.175s ease-in
-
   &::after
     top: 10px
     right: 0
@@ -106,13 +116,11 @@ $logoSizeMultiplier: 8
   transition-delay: 0s
   transition-timing-function: ease-out
   background-color: transparent
-
   &::before
     left: -80px
     top: -80px
     transform: translate3d(80px, 80px, 0) rotate(45deg)
     transition: left 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1)
-
   &::after
     right: -80px
     top: -80px
@@ -130,17 +138,22 @@ $logoSizeMultiplier: 8
   right: 0
   padding: 6rem 0 3rem
   width: 20%
-  min-width: 20rem
-  background: #000000df
+  min-width: 16rem
+  background: black
   color: white
   height: 100svh
-  color: white
   transform: translateX(100%)
-  transition: transform 0.3s ease-in-out
+  transition: transform 0.3s ease-in-out, width 0.3s ease
   z-index: 99
+  @media (max-width: 780px) or (max-aspect-ratio: 1/1)
+    width: 100vw
+    align-items: flex-end
+    padding: 6rem 1.5rem
 
   &.is-active
     transform: translateX(0)
+    @media (max-width: 780px) or (max-aspect-ratio: 1/1)
+      text-align: right
 
   & ul
     overflow: hidden
@@ -150,10 +163,11 @@ $logoSizeMultiplier: 8
     position: relative
     font-size: 2.5rem
     cursor: pointer
-    width: fit-content
+    width: auto
     list-style: none
     margin-bottom: 0.5rem
-
+    @media (max-width: 1024px) or (max-aspect-ratio: 1/1)
+      font-size: 2rem
     &::after,
     &:hover::after
       content: ''
@@ -166,6 +180,9 @@ $logoSizeMultiplier: 8
       margin-top: 0.2rem
       transform: translateX(calc(-100% - 3rem))
       transition: transform 0.3s ease-in-out
-
     &:hover::after
       transform: translateX(0)
+    &::after
+      opacity: 0
+      @media (any-hover: hover)
+        opacity: 1

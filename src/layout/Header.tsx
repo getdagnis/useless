@@ -19,10 +19,18 @@ const Header = (props: Props) => {
 			}
 		};
 
+		const handleClickOutside = (event: MouseEvent) => {
+			if (event.target instanceof HTMLElement && !event.target.closest(`.${styles.menu}`)) {
+				setIsMenuOpen(false);
+			}
+		};
+
 		document.addEventListener("keydown", handleEscapeKey);
+		document.addEventListener("click", handleClickOutside);
 
 		return () => {
 			document.removeEventListener("keydown", handleEscapeKey);
+			document.removeEventListener("click", handleClickOutside);
 		};
 	}, [isMenuOpen]);
 
@@ -51,9 +59,11 @@ const Header = (props: Props) => {
 			</div>
 			<div className={`${styles.menu} ${isMenuOpen && styles["is-active"]}`}>
 				<ul>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Don't Buy!</li>
+					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Shop</li>
 					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Vote</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Suggest New</li>
+					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Suggest</li>
+					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Publish</li>
+					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Gallery</li>
 					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>About</li>
 				</ul>
 			</div>

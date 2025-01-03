@@ -112,7 +112,7 @@ const Slider: React.FC<SliderProps> = () => {
 						key={activeSlide}
 						className={styles.stickerWrapper}
 						style={{
-							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8.5) * 1000}ms`,
+							animationDelay: `${(TOP_10_STICKERS[activeSlide].text.length / 8) * 1000}ms`,
 						}}
 					>
 						<Sticker
@@ -139,15 +139,17 @@ const Slider: React.FC<SliderProps> = () => {
 				)}
 
 				{/* PAGINATION */}
-				<ul className={styles.pagination}>
-					{[...Array(HERO_TITLES.length)].map((_, index) => (
-						<li
-							key={index}
-							className={index === activeSlide ? styles.active : ""}
-							onClick={() => setActiveSlide(index)}
-						></li>
-					))}
-				</ul>
+				<div className={styles.paginationWrapper}>
+					<ul className={styles.pagination}>
+						{[...Array(HERO_TITLES.length)].map((_, index) => (
+							<li
+								key={index}
+								className={index === activeSlide ? styles.active : ""}
+								onClick={() => setActiveSlide(index)}
+							></li>
+						))}
+					</ul>
+				</div>
 				<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
 			</div>
 		</div>
