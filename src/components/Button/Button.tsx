@@ -13,7 +13,6 @@ export interface ButtonProps {
 }
 
 export function Button({ text, icon, id, isPrimary, isSecondary, size, onClick }: ButtonProps) {
-	console.log("🥖🥖🇫🇷🇫🇷 id", id);
 	return (
 		<div
 			id={id}
@@ -26,7 +25,7 @@ export function Button({ text, icon, id, isPrimary, isSecondary, size, onClick }
 					? `${styles.button} ${styles.isIconButton}`
 					: styles.button
 			}
-			onClick={onClick}
+			onMouseUp={onClick}
 		>
 			<span className={size ? size : "medium"}>{text}</span>{" "}
 			<span className={styles.icon}>{icon}</span>

@@ -12,7 +12,7 @@
   border-radius: 0.25rem
   cursor: pointer
   margin: 0.5rem
-  transition: background 0.4s ease-in, color 0.8s ease-in, transform 0.3s ease
+  transition: background 0.4s ease-in, color 0.8s ease-in, translate 0.2s ease
 
   &.isPrimary
     background: gray
@@ -39,7 +39,7 @@
     animation: none
 
   &:active
-    transform: scale(100)
+    transform: scale(100) rotate(180deg)
     transition: all 0.5s ease
 
   &.isSecondary:active

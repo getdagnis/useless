@@ -14,9 +14,16 @@ export function Sticker({ text, fontSize }: StickerComponentProps) {
 		return null;
 	}
 
+	const formattedText = text.split("{{br}}").map((line, index) => (
+		<React.Fragment key={index}>
+			{line}
+			<br />
+		</React.Fragment>
+	));
+
 	return (
 		<div className={styles.sticker} style={{ fontSize: fontSize }}>
-			{text}
+			{formattedText}
 		</div>
 	);
 }

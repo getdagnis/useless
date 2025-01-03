@@ -21,14 +21,14 @@
   align-items: center
   margin-top: 20vh
 
-.stickerWrapper
+.stickerWrapper, .buttonWrapperWrapper
   display: flex
   flex: 1
   flex-direction: column
   justify-content: center
   align-items: center
   padding: 1rem 0
-  animation: dropAnimation 0.3s ease // 4s delay only for the last slide, others dynamically in js
+  animation: dropAnimation 0.3s ease 4s // 4s delay only for the last slide, others dynamically in js
   animation-fill-mode: backwards
 
 .paginationWrapper
@@ -45,6 +45,14 @@
   justify-content: center
   align-items: flex-start
   z-index: 99
+
+.buttonWrapperWrapper >  h6
+  letter-spacing: 1px
+  font-weight: 400
+  margin-bottom: 0.5rem
+  margin-top: 0
+  animation: fadeIn 5s ease 7s
+  animation-fill-mode: backwards
 
 .slider h1
   animation-fill-mode: backwards
@@ -139,7 +147,7 @@
   left: 50%
   transform: translate(-50%, -50%)
   overflow: hidden
-  font-size: 65rem
+  font-size: 50rem
   color: red
   display: flex
   justify-content: center
@@ -199,6 +207,5 @@
 @keyframes fadeIn
   0%
     opacity: 0
-
   100%
     opacity: 1

@@ -162,6 +162,19 @@ $paddingTop: 2rem
     margin-left: 2rem
     padding: 2rem 0
 
+  & h6
+    letter-spacing: 1px
+    font-weight: 400
+    margin-bottom: 1rem
+    animation: fadeIn 5s ease 4s
+    animation-fill-mode: backwards
+
+  @keyframes fadeIn
+    0%
+      opacity: 0
+    100%
+      opacity: 1
+
   & li
     position: relative
     display: block
@@ -179,8 +192,11 @@ $paddingTop: 2rem
       font-size: 1.5rem
       letter-spacing: -0.5px
     &:hover
-      transform: rotate(180deg)
+      transform: rotate(360deg)
       z-index: 9999
+    &:active
+      transform: rotate(360deg)
+      transition: transform 0.05s ease
     &::after,
     &:hover::after
       content: ''
