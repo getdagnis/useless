@@ -88,3 +88,22 @@ export function getStickerByIndex(
 /*********************************************************************************
  ************************************ VARIOUS ************************************
  *********************************************************************************/
+
+let xDirection: number | null = null; // To store the persistent x-axis direction
+
+export function randomTranslateButton(button: HTMLElement) {
+	if (xDirection === null) {
+		// Choose the x-direction randomly on the first call
+		xDirection = Math.random() < 0.5 ? -2 : 2;
+	}
+
+	console.log("xDirection", xDirection);
+
+	const xTranslate = xDirection * (Math.random() * 10 + 20); // Random value between 10% and 20%
+
+	const yDirection = Math.random() < 0.5 ? -1 : 1; // Randomly choose -1 or 1
+	console.log("🚨 xDirection", xDirection);
+	const yTranslate = yDirection * 100; // 100% up or down
+
+	button.style.transform = `translate(${xTranslate}%, ${yTranslate}%)`;
+}

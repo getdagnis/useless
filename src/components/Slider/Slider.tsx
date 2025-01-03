@@ -7,6 +7,8 @@ import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
 import { useDeviceSize } from "react-device-sizes";
+import { Button } from "../Button";
+import { randomTranslateButton } from "@/src/helpers";
 
 interface SliderProps {}
 
@@ -18,7 +20,7 @@ const swipeableConfig = {
 };
 
 const Slider: React.FC<SliderProps> = () => {
-	const [activeSlide, setActiveSlide] = useState(0);
+	const [activeSlide, setActiveSlide] = useState(7);
 
 	const heroTitles = HERO_TITLES[activeSlide];
 	const combinedTitlesArray = [];
@@ -28,16 +30,11 @@ const Slider: React.FC<SliderProps> = () => {
 	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
 
 	const stickerLength = TOP_10_STICKERS[activeSlide].text.length;
-	const animationDelay = (stickerLength / 12) * 1000;
+	const animationDelay = (stickerLength / 12) * 100;
 	let fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
-
-	console.log("🥖🥖🇫🇷🇫🇷 isLastSlide", isLastSlide);
-	console.log("🥖🥖🇫🇷🇫🇷 heroTitles.length - 1;", heroTitles.length - 1);
-	console.log("🥖🥖🇫🇷🇫🇷 activeSlide", activeSlide);
 
 	const deviceSizes = useDeviceSize();
 	fontSize = deviceSizes.xsDown ? "1.5rem" : fontSize;
-	console.log("🥖🥖🇫🇷🇫🇷 deviceSizes", deviceSizes);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -52,6 +49,22 @@ const Slider: React.FC<SliderProps> = () => {
 		return () => {
 			document.removeEventListener("keydown", handleKeyDown);
 		};
+	}, []);
+
+	useEffect(() => {
+		const overthinkLaterButton = document.getElementById("overthinkLater");
+
+		if (overthinkLaterButton) {
+			const handleMouseOver = () => randomTranslateButton(overthinkLaterButton);
+
+			overthinkLaterButton.addEventListener("mouseenter", handleMouseOver);
+			overthinkLaterButton.addEventListener("mouseover", handleMouseOver);
+
+			return () => {
+				overthinkLaterButton.removeEventListener("mouseenter", handleMouseOver);
+				overthinkLaterButton.removeEventListener("mouseover", handleMouseOver);
+			};
+		}
 	}, []);
 
 	const handlers = useSwipeable({
@@ -117,9 +130,14 @@ const Slider: React.FC<SliderProps> = () => {
 
 				{/* BUTTONS */}
 				{isLastSlide && (
-					<div className={styles.stickerWrapper}>
-						<div className={styles.button}>Buy Now</div>
-						<div className={styles.button}>Overthink Later</div>
+					<div className={`${styles.stickerWrapper} ${styles.buttonWrapper}`}>
+						<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
+						<Button
+							id="overthinkLater"
+							text="Overthink Later"
+							onClick={() => handleSlideClick("Down")}
+							isSecondary
+						/>
 					</div>
 				)}
 
