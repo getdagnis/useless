@@ -1,4 +1,4 @@
-import { StickerProps } from "../src/constants";
+import { StickerProps } from "@/src/base/constants";
 
 /*********************************************************************************
  *********************************** STICKERS ************************************

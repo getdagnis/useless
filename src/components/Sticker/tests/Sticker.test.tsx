@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
+import { describe } from "node:test";
 
-import {Sticker} from '../Sticker';
+import { Sticker } from "../Sticker";
 
-describe('<Sticker />', () => {});
+describe("<Sticker />", () => {});
