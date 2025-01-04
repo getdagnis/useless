@@ -9,11 +9,19 @@ export const HERO_TITLES: string[][] = [
 		"PUBLIC CONFUSION BY BUYING SOMETHING ",
 		"COMPLETELY USELESS.",
 	],
-	["Let Us Introduce The Stickers ", "You Never Knew You Didn’t Need."],
-	["Every Single One Of Them ", "Is Pointless, Useless, and", " We Are Not Even Proud Of It."],
+	["Let Me Introduce The Stickers ", "You Never Knew You Didn’t Need."],
+	["Every Single One Of Them ", "Is Pointless, Useless, and", " I'm Not Even Proud Of It."],
 	["Some Say They’re Greatly Overpriced... ", "But Honestly—Why Not...?"],
-	["Satisfaction? Who Needs It? ", "We are famous for zero ", "satisfaction guarantee."],
-	["With our stickers we strive ", "to be Annoying, Ridiculous", "and Completely Irresistible."],
+	[
+		"Satisfaction? Who Needs It? ",
+		"There are companies famous for zero ",
+		"satisfaction guarantee.",
+	],
+	[
+		"With these stickers you can strive ",
+		"to be Annoying, Ridiculous",
+		"and Completely Irresistible.",
+	],
 	[
 		"You can now make a complete fool ",
 		" of yourself By Turning Any Object into ",
@@ -109,7 +117,7 @@ export const STICKERS: StickerProps[] = [
 ];
 
 export const TOP_10_STICKERS: StickerProps[] = [
-	{ id: "xjug", text: "IN CASE OF EMERGENCY LICK THIS STICKER TO ESCAPE." },
+	{ id: "xjug", text: "IN CASE OF EMERGENCY {{br}}LICK THIS STICKER TO ESCAPE." },
 	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. {{br}}IT COULD BE SLEEPING." },
 	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE {{br}}FOUND THE DOOR." },
 	{ id: "ywfr", text: "PLEASE WAIT HERE UNTIL I HAVE {{br}}TIME FOR YOUR BULLSHIT." },
