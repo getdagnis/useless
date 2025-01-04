@@ -9,8 +9,6 @@ export interface PaginationProps {
 }
 
 export const Pagination = ({ countOfPages, activePage, onClick }: PaginationProps) => {
-	console.log("🥖🥖🇫🇷🇫🇷 countOfPages", countOfPages);
-	console.log("🥖🥖🇫🇷🇫🇷 activePage", activePage);
 	return (
 		<div>
 			<ul className={styles.pagination}>
@@ -19,6 +17,7 @@ export const Pagination = ({ countOfPages, activePage, onClick }: PaginationProp
 						key={index}
 						className={index === activePage ? styles.active : ""}
 						onClick={() => onClick(index)}
+						data-testid={`pagination-item-${index}`}
 					></li>
 				))}
 			</ul>

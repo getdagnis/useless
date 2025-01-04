@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 // Zustand Next.js guide: https://zustand.docs.pmnd.rs/guides/nextjs
 // Zustand docs: https://github.com/pmndrs/zustand/tree/main/docs
