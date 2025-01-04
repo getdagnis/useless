@@ -150,7 +150,7 @@ const Slider: React.FC<SliderProps> = () => {
 					<Pagination
 						countOfPages={HERO_TITLES.length}
 						activePage={activeSlide}
-						onClick={() => handleSlideClick("")}
+						onClick={(index) => setActiveSlide(index)}
 					/>
 				</div>
 				<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
