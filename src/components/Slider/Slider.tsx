@@ -1,15 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-
-import styles from "./Slider.module.sass";
-import { HERO_TITLES, TOP_10_STICKERS } from "@/src/constants";
-import { Sticker } from "../Sticker";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
 import { useDeviceSize } from "react-device-sizes";
-import { Button } from "../Button";
+
+import styles from "./Slider.module.sass";
+import { HERO_TITLES, TOP_10_STICKERS } from "@/src/base/constants";
+import { Button, Pagination, Sticker } from "@/src/components";
 
 interface SliderProps {}
+
+// Dynamic font size for longer stickers (so all fit within two lines at least on desktop)
+const DYNAMIC_FONT_SIZE_DIVIDER = 31;
+// Sticker appears after the title is read, based on title length. Delay is in seconds
+// I.e. — 6 words * this. Average reading speed is 240 words/min. 60/240 = 0.25s
+const STICKER_DELAY_MULTIPLIER = 0.25;
 
 const swipeableConfig = {
 	delta: 10, // min distance(px) before a swipe is detected
@@ -20,24 +25,22 @@ const swipeableConfig = {
 
 const Slider: React.FC<SliderProps> = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
+	const isFirstSlide = activeSlide === 0;
+	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
 
 	const heroTitles = HERO_TITLES[activeSlide];
 	const combinedTitlesArray = [];
 	combinedTitlesArray.push(heroTitles.flatMap((title) => title).join(" "));
 
-	const isFirstSlide = activeSlide === 0;
-	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
-
-	// Sticker appears around the time when message above has been read
 	const heroWords = combinedTitlesArray[0].split(" ").length;
-	const animationDelay = heroWords * 0.25;
+	const animationDelay = heroWords * STICKER_DELAY_MULTIPLIER;
 
-	// Dynamic font size for longer stickers (to better fit actual designs)
-	let fontSize = TOP_10_STICKERS[0].text.length / 27.5 + "rem";
-
+	let fontSize = TOP_10_STICKERS[0].text.length / DYNAMIC_FONT_SIZE_DIVIDER + "rem";
 	const deviceSizes = useDeviceSize();
+	// Font size for small mobile devices
 	fontSize = deviceSizes.xsDown ? "1.5rem" : fontSize;
 
+	// Allows arrow navigation between slides
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "ArrowRight" || event.key === "Enter" || event.key === " ") {
@@ -53,6 +56,7 @@ const Slider: React.FC<SliderProps> = () => {
 		};
 	}, []);
 
+	// Allows swipe navigation between slides both on mobile and desktop
 	const handlers = useSwipeable({
 		onSwiped: (eventData) => {
 			eventData.dir === "Right" && !isFirstSlide && handleSlideClick("Left");
@@ -70,6 +74,8 @@ const Slider: React.FC<SliderProps> = () => {
 		}
 		return;
 	};
+
+	console.log("💀🏜 activeSlide", activeSlide);
 
 	return (
 		<div className={styles.container}>
@@ -113,7 +119,9 @@ const Slider: React.FC<SliderProps> = () => {
 						<Sticker text={TOP_10_STICKERS[activeSlide].text} fontSize={fontSize} />
 					</div>
 				)}
-
+				{/* TODO: Logic for the real buttons to appear: every click adds another 5 seconds
+				to waiting time, every mouse enter as well. Mouse getting close to screen edges — depletes
+				time. Test how long is normal to play with them (ie, 5 times each button), for max time */}
 				{/* BUTTONS */}
 				{isLastSlide && (
 					<div className={styles.buttonWrapperWrapper}>
@@ -137,18 +145,13 @@ const Slider: React.FC<SliderProps> = () => {
 				{!isFirstSlide && !isMobile && (
 					<div className={styles.arrowContainerLeft} onClick={() => handleSlideClick("Left")}></div>
 				)}
-
-				{/* PAGINATION */}
 				<div className={styles.paginationWrapper}>
-					<ul className={styles.pagination}>
-						{[...Array(HERO_TITLES.length)].map((_, index) => (
-							<li
-								key={index}
-								className={index === activeSlide ? styles.active : ""}
-								onClick={() => setActiveSlide(index)}
-							></li>
-						))}
-					</ul>
+					{" "}
+					<Pagination
+						countOfPages={HERO_TITLES.length}
+						activePage={activeSlide}
+						onClick={() => handleSlideClick("")}
+					/>
 				</div>
 				<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
 			</div>
