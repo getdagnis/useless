@@ -28,8 +28,13 @@
   justify-content: center
   align-items: center
   padding: 1rem 0
-  animation: dropAnimation 0.3s ease 4s // 4s delay only for the last slide, others dynamically in js
+  animation: dropAnimation 0.5s ease 4s // 4s delay only for the last slide, others dynamically in js
   animation-fill-mode: backwards
+  transition: all 0.2s ease
+
+.stickerWrapper:hover
+  transition: 0.2s 0.2s
+  transform: translate3d(5%, -20%, 20px) scale(1.5) rotate(-25deg)
 
 .paginationWrapper
   display: flex
@@ -51,7 +56,7 @@
   font-weight: 400
   margin-bottom: 0.5rem
   margin-top: 0
-  animation: fadeIn 5s ease 7s
+  animation: fadeIn 5s ease 5s
   animation-fill-mode: backwards
 
 .slider h1
@@ -59,7 +64,8 @@
   text-transform: uppercase
   user-select: none
   text-align: center
-  animation: slideInRight 0.5s linear
+  animation: blur-in-left 2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both
+  animation-delay: 1s
   animation-fill-mode: backwards
   letter-spacing: 1px
   @media (max-width: 600px)
@@ -78,15 +84,17 @@
   display: flex
   top: 50%
   right: 0
-  transform: translatey(-50%)
-  width: 50svw
-  height: 50svh
+  transform: translatey(-70%)
+  width: 30svw
+  height: 30svh
   padding-right: 2rem
   flex-direction: row
   justify-content: flex-end
   align-items: center
   cursor: pointer
   z-index: 1
+  animation: arrowsShrink 0.3s ease
+  animation-fill-mode: backwards
 
 .arrowContainerLeft
   left: 0
@@ -103,10 +111,14 @@
   translate: -50% 0
   transition: opacity 0.3s ease-in-out, translate 0.3s ease-in-out
   background: url('/arrow-white.svg') no-repeat center center
-  // TODO: enable on launch and above value is 1 then
+  // TODO: enable on launch + above value is 1 then
   // @media (any-hover: hover) 
   //   cursor: pointer
   //   opacity: 0
+
+.arrowContainer:active::after,
+.arrowContainerLeft:active::after
+  translate: 50% 0
 
 .arrowContainerLeft::after
   rotate: 180deg
@@ -124,7 +136,6 @@
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
-  overflow: hidden
   font-size: 50rem
   color: red
   display: flex
@@ -132,58 +143,108 @@
   align-items: center
   color: #00000011
   z-index: -1
-  contain: layout
-
-@keyframes zoomIn
-  0%
-    opacity: 0
-    transform: scale(0)
-    rotate: 20deg
-  60%, 90%
-    opacity: 1
-    scale: 0.70
-    rotate: 0deg
-  85%
-    transform: scale(1.30)
-    rotate: 5deg
-  100%
-    opacity: 1
-    transform: scale(1)
-
-@keyframes dropAnimation
-  0%
-    opacity: 0
-    transform: scale(50)
-    rotate: 50deg
-  60%, 90%
-    opacity: 1
-    scale: 0.70
-  85%
-    transform: scale(1.30)
-  100%
-    opacity: 1
-    transform: scale(1)
-
-@keyframes slideInRight
-  0%
-    transform: translateX(20%)
-    opacity: 0
-
-  100%
-    transform: translateX(0)
-    opacity: 1
-
-    @keyframes slideOutLeft
-      0%
-        transform: translateX(-20%)
-        opacity: 0
-
-      100%
-        transform: translateX(0)
-        opacity: 1
 
 @keyframes fadeIn
   0%
     opacity: 0
   100%
     opacity: 1
+
+@keyframes dropAnimation
+  0%
+    opacity: 0
+    transform: scale(50)
+    rotate: 50deg
+  55%
+    transform: scale(1)
+    animation-timing-function: ease-out
+    opacity: 1
+    rotate: 0deg
+  81%
+    transform: scale(1.1)
+    animation-timing-function: ease-out
+  89%
+    transform: scale(1)
+    animation-timing-function: ease-in
+  95%
+    transform: scale(1.04)
+  100%
+    opacity: 1
+    transform: scale(1)
+    animation-timing-function: ease-out
+
+@keyframes blur-in-left
+  0%
+    filter: blur(12px)
+    translate: 50% 0
+    opacity: 0
+
+  40%
+    filter: blur(12px)
+    translate: 50% 0
+    opacity: 0
+
+  100%
+    filter: blur(0px)
+    translate: 0 0
+    opacity: 1
+
+@keyframes blur-out-right
+  0%
+    filter: blur(12px)
+    translate: 50% 0
+    opacity: 0
+
+  40%
+    filter: blur(12px)
+    translate: 50% 0
+    opacity: 0
+
+  100%
+    filter: blur(0px)
+    translate: 0 0
+    opacity: 1
+
+@keyframes bounce-in-btns
+  0%
+    transform: scale(7)
+    animation-timing-function: ease-in
+    opacity: 0
+
+  38%
+    transform: scale(1)
+    animation-timing-function: ease-out
+    opacity: 1
+
+  55%
+    transform: scale(1.5)
+    animation-timing-function: ease-in
+
+  72%
+    transform: scale(1)
+    animation-timing-function: ease-out
+
+  81%
+    transform: scale(1.24)
+    animation-timing-function: ease-in
+
+  89%
+    transform: scale(1)
+    animation-timing-function: ease-out
+
+  95%
+    transform: scale(1.04)
+    animation-timing-function: ease-in
+
+  100%
+    transform: scale(1)
+    animation-timing-function: ease-out
+
+@keyframes arrowsShrink
+  0%
+    width: 80svw
+    height: 60svh
+    transform: translate(0, -30svh)
+  100%
+    width: 30svw
+    height: 30svh
