@@ -1,1 +1,1 @@
-import '@babel/register';
+import "@babel/register";
