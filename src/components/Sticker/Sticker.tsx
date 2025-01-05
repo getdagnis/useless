@@ -5,14 +5,17 @@ import styles from "./Sticker.module.sass";
 
 export interface StickerComponentProps {
 	text: string;
-	fontSize: string | number;
+	fontSize?: string | number;
+	isHovered?: boolean;
 }
 
-export function Sticker({ text, fontSize }: StickerComponentProps) {
+export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 	if (!text) {
 		console.warn("Sticker not found.");
 		return null;
 	}
+
+	console.log("🏜💀👾 isHovered", isHovered);
 
 	const formattedText = text.split("{{br}}").map((line, index) => (
 		<React.Fragment key={index}>
@@ -23,7 +26,10 @@ export function Sticker({ text, fontSize }: StickerComponentProps) {
 
 	return (
 		<div className={styles.stickerHolder}>
-			<div className={styles.sticker} style={{ fontSize: fontSize }}>
+			<div
+				className={`${styles.sticker} ${isHovered ? styles.stickerHovered : ""}`}
+				style={{ fontSize: fontSize ? fontSize : "1rem" }}
+			>
 				{formattedText}
 			</div>
 		</div>

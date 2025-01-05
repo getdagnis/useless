@@ -30,8 +30,6 @@ $stickerPosition: 12
   transition: box-shadow 0.2s cubic-bezier(.57,-0.05,.88,.6) 0.1s
   // color: white
   // background: linear-gradient(to right, #ff1732, #4b00bc)
-  &:hover
-    box-shadow: -3rem 2rem 0px rgba(0, 0, 0, 0.25)
   &::after
     content: '#UselessStickers'
     display: block
@@ -50,6 +48,9 @@ $stickerPosition: 12
     width: fit-content
     height: fit-content
     padding: 0.5rem 0.75rem
+
+.stickerHovered
+  box-shadow: -3rem 2rem 0px rgba(0, 0, 0, 0.25)
 
 @keyframes slideInFromLeft
   0%

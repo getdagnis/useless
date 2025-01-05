@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
 import { useDeviceSize } from "react-device-sizes";
@@ -27,6 +27,8 @@ const swipeableConfig = {
 
 const Slider: React.FC<SliderProps> = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
+	const [isHovered, setIsHovered] = useState(false);
+	const [allowHover, setAllowHover] = useState(false);
 	const isFirstSlide = activeSlide === 0;
 	const isLastSlide = activeSlide === HERO_TITLES.length - 1;
 
@@ -67,6 +69,7 @@ const Slider: React.FC<SliderProps> = () => {
 		...swipeableConfig,
 	});
 
+	// Move to the next or previous slide
 	const handleSlideClick = (side: string) => {
 		if (side === "Right" && !isLastSlide) {
 			setActiveSlide((prevSlide) => (prevSlide + 1 + HERO_TITLES.length) % HERO_TITLES.length);
@@ -76,6 +79,23 @@ const Slider: React.FC<SliderProps> = () => {
 		}
 		return;
 	};
+
+	// Zoom in sticker on hover
+	const handleHover = (hovered: boolean) => {
+		if (hovered && allowHover) {
+			setIsHovered(true);
+			return;
+		}
+		setIsHovered(false);
+	};
+
+	// Delay possibility to unintentionally zoom in sticker on its initial entering
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setAllowHover(true);
+		}, animationDelay * 1000 + 700);
+		return () => clearTimeout(timer);
+	}, [activeSlide]);
 
 	return (
 		<div className={styles.container}>
@@ -113,18 +133,27 @@ const Slider: React.FC<SliderProps> = () => {
 				{!isLastSlide && (
 					<div
 						key={activeSlide}
-						className={styles.stickerWrapper}
+						className={`${styles.stickerWrapper} ${
+							isHovered && !isMobile && styles.stickerHovered
+						}`}
 						style={{
 							animationDelay: `${animationDelay}s`,
 						}}
+						onMouseEnter={() => handleHover(true)}
+						onMouseLeave={() => handleHover(false)}
 					>
-						<Sticker text={TOP_10_STICKERS[activeSlide].text} fontSize={fontSize} />
+						<Sticker
+							text={TOP_10_STICKERS[activeSlide].text}
+							fontSize={fontSize}
+							isHovered={isHovered}
+						/>
 					</div>
 				)}
+
+				{/* BUTTONS */}
 				{/* TODO: Logic for the real buttons to appear: every click adds another 5 seconds
 				to waiting time, every mouse enter as well. Mouse getting close to screen edges — depletes
 				time. Test how long is normal to play with them (ie, 5 times each button), for max time */}
-				{/* BUTTONS */}
 				{isLastSlide && (
 					<div className={styles.buttonWrapperWrapper}>
 						<h6>COMPLETELY USELESS BUTTONS</h6>
