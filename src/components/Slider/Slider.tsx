@@ -14,7 +14,9 @@ interface SliderProps {}
 const DYNAMIC_FONT_SIZE_DIVIDER = 31;
 // Sticker appears after the title is read, based on title length. Delay is in seconds
 // I.e. — 6 words * this. Average reading speed is 240 words/min. 60/240 = 0.25s
-const STICKER_DELAY_MULTIPLIER = 0.25;
+const STICKER_DELAY_MULTIPLIER = 0.28;
+// titles appear one by one, delay is in seconds
+const TITLES_ANIMATION_DELAY = 0.3;
 
 const swipeableConfig = {
 	delta: 10, // min distance(px) before a swipe is detected
@@ -75,36 +77,36 @@ const Slider: React.FC<SliderProps> = () => {
 		return;
 	};
 
-	console.log("💀🏜 activeSlide", activeSlide);
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.slider} {...handlers}>
 				{/* HERO TITLES */}
 				<div className={styles.sliderText}>
-					{!deviceSizes.xsDown &&
-						HERO_TITLES[activeSlide].map((title, index) => (
+					<div className={styles.titlesToBottom}>
+						{!deviceSizes.xsDown &&
+							HERO_TITLES[activeSlide].map((title, index) => (
+								<h1
+									key={`${activeSlide}-${index}`}
+									style={{
+										animationDelay: `${index * TITLES_ANIMATION_DELAY}s`,
+										fontSize: fontSize,
+									}}
+								>
+									{title}
+								</h1>
+							))}
+
+						{isMobile && deviceSizes.xsDown && (
 							<h1
-								key={`${activeSlide}-${index}`}
 								style={{
-									animationDelay: `${index * 400}ms`,
+									animationDelay: `0.4ms`,
 									fontSize: fontSize,
 								}}
 							>
-								{title}
+								{combinedTitlesArray}
 							</h1>
-						))}
-
-					{isMobile && deviceSizes.xsDown && (
-						<h1
-							style={{
-								animationDelay: `0.4ms`,
-								fontSize: fontSize,
-							}}
-						>
-							{combinedTitlesArray}
-						</h1>
-					)}
+						)}
+					</div>
 				</div>
 
 				{/* STICKER */}
@@ -127,26 +129,41 @@ const Slider: React.FC<SliderProps> = () => {
 					<div className={styles.buttonWrapperWrapper}>
 						<h6>COMPLETELY USELESS BUTTONS</h6>
 						<div className={styles.buttonWrapper}>
-							<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
-							<Button
-								id="overthinkLater"
-								text="Overthink Later"
-								onClick={() => handleSlideClick("Down")}
-								isSecondary
-							/>
+							<div className={styles.btn1}>
+								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
+							</div>
+							<div className={styles.btn2}>
+								<Button
+									id="overthinkLater"
+									text="Overthink Later"
+									onClick={() => handleSlideClick("Down")}
+									isSecondary
+								/>
+							</div>
 						</div>
 					</div>
 				)}
 
 				{/* ARROWS */}
 				{!isLastSlide && !isMobile && (
-					<div className={styles.arrowContainer} onClick={() => handleSlideClick("Right")}></div>
+					<div
+						className={styles.arrowContainer}
+						style={{
+							animationDelay: `${animationDelay + 1}s`,
+						}}
+						onClick={() => handleSlideClick("Right")}
+					></div>
 				)}
 				{!isFirstSlide && !isMobile && (
-					<div className={styles.arrowContainerLeft} onClick={() => handleSlideClick("Left")}></div>
+					<div
+						className={styles.arrowContainerLeft}
+						style={{
+							animationDelay: `${animationDelay + 1}s`,
+						}}
+						onClick={() => handleSlideClick("Left")}
+					></div>
 				)}
 				<div className={styles.paginationWrapper}>
-					{" "}
 					<Pagination
 						countOfPages={HERO_TITLES.length}
 						activePage={activeSlide}

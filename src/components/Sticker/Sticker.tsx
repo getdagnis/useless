@@ -22,8 +22,10 @@ export function Sticker({ text, fontSize }: StickerComponentProps) {
 	));
 
 	return (
-		<div className={styles.sticker} style={{ fontSize: fontSize }}>
-			{formattedText}
+		<div className={styles.stickerHolder}>
+			<div className={styles.sticker} style={{ fontSize: fontSize }}>
+				{formattedText}
+			</div>
 		</div>
 	);
 }
