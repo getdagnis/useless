@@ -12,13 +12,9 @@ export interface StickerComponentProps {
 
 export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 	const [isLongSticker] = React.useState(text.length > 40);
-	if (!text) {
-		console.log("🚨 *** Sticker not found! *** 🚨");
-		return null;
-	}
+	const [isVeryLongSticker] = React.useState(text.length > 55);
 
 	console.log("🏜💀👾 text.length", text.length);
-
 	console.log("🏜💀👾 text", text);
 	console.log("🏜💀👾 isLongSticker", isLongSticker);
 
@@ -32,9 +28,13 @@ export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 	return (
 		<div className={styles.stickerHolder}>
 			<div
-				className={`${isLongSticker ? styles.stickerLong : styles.sticker} ${
-					isHovered ? styles.stickerHovered : ""
-				}`}
+				className={`${
+					isVeryLongSticker
+						? styles.stickerVeryLong
+						: isLongSticker
+						? styles.stickerLong
+						: styles.sticker
+				} ${isHovered ? styles.stickerHovered : ""}`}
 				style={{ fontSize: fontSize ? fontSize : "" }}
 			>
 				{formattedText}

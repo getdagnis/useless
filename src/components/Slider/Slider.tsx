@@ -94,8 +94,6 @@ const Slider: React.FC = () => {
 		return () => clearTimeout(timer);
 	}, [activeSlide, animationDelay]);
 
-	console.log("🏜💀👾 deviceSizes.xsDown", deviceSizes.xsDown);
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.slider} {...handlers}>
