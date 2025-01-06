@@ -1,1 +1,105 @@
 
+.menu
+  position: fixed
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-end
+  gap: 1rem
+  top: 0
+  right: -1px
+  padding: 3rem 0
+  width: fit-content
+  min-width: fit-content
+  background: #000000dd
+  backdrop-filter: blur(0.2rem)
+  color: white
+  height: 100svh
+  transform: translateX(100%)
+  transition: transform 0.4s ease-in-out, width 0.4s ease
+  z-index: 99
+  @media (max-width: 480px) or (max-aspect-ratio: 1/1)
+    width: 100vw
+    align-items: flex-end
+
+  &.is-active
+    transform: translateX(0)
+    @media (max-width: 480px) or (max-aspect-ratio: 1/1)
+      text-align: right
+
+  & ul
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    margin-right: 2rem
+    overflow: hidden
+    margin-left: 6rem
+    padding: 2rem 0
+    @media (max-width: 480px) or (max-aspect-ratio: 1/1)
+      margin-right: 1.2rem
+
+  & h6
+    letter-spacing: 1px
+    font-weight: 400
+    font-size: 0.75rem
+    margin-bottom: 0.2rem
+    animation: fadeIn 5s ease 4s
+    animation-fill-mode: backwards
+
+    &:last-of-type
+      margin-bottom: 1rem
+
+  & li
+    list-style: none
+    height: 2.25rem
+    color: white
+
+  & .liInner
+    position: relative
+    display: block
+    font-size: 1.5rem
+    cursor: pointer
+    width: fit-content
+    font-weight: 500
+    text-transform: uppercase
+    margin-bottom: 0.5rem
+    letter-spacing: 0.5px
+    background: transparent
+    transition: rotate 0.5s ease, transform 0.2s ease 4s, opacity 0.4s ease-in-out 4s
+    @media (max-width: 480px) or (max-aspect-ratio: 1/1)
+      font-size: 1.5rem
+      letter-spacing: -0.5px
+    &:hover
+      // rotate: (360deg)
+      z-index: 9999
+    &::after,
+    &:hover::after
+      content: ''
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      height: 3px
+      background-color: white
+      margin-top: 0.2rem
+      transform: translateX(calc(110%))
+      transition: transform 0.01s ease-in-out, opacity 0.01s ease-in-out 4s
+    &:hover::after
+      transform: translateX(0)
+      transition: transform 0.4s ease-in-out
+    &::after
+      opacity: 0
+      @media (any-hover: hover)
+        opacity: 1
+    &:active::after
+      transform: scale(0)
+      opacity: 0
+      transform-origin: center
+      transition: transform 0.1s ease-in-out
+
+li .hidden
+      position: absolute
+      transform: scale(0)
+      transform-origin: center
+      opacity: 0
+      transition: transform 0.2s ease
