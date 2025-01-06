@@ -1,7 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-	optimizeCss: true,
-	treeShake: true,
-};
+const nextConfig = {};
 
 export default nextConfig;
