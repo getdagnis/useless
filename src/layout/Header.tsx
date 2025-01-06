@@ -1,15 +1,14 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
+import { Menu } from "@/src/components/Menu";
 import styles from "./Header.module.sass";
 
-interface Props {}
-
-const Header = (props: Props) => {
+const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	const handleHamburgerClick = (slow?: string) => {
+	const handleHamburgerClick = (slow: string) => {
 		if (slow === "slow") {
 			setTimeout(() => {
 				setIsMenuOpen(!isMenuOpen);
@@ -53,7 +52,7 @@ const Header = (props: Props) => {
 					priority
 				/>
 			</div>
-
+			<Menu isMenuOpen={isMenuOpen} onClick={() => handleHamburgerClick("slow")} />
 			<div
 				className={`${styles.hamburger} ${styles["hamburger--collapser"]} ${
 					isMenuOpen && styles["is-active"]
@@ -63,26 +62,6 @@ const Header = (props: Props) => {
 				<span className={styles["hamburger-box"]}>
 					<span className={styles["hamburger-inner"]}></span>
 				</span>
-			</div>
-			<div className={`${styles.menu} ${isMenuOpen && styles["is-active"]}`}>
-				<ul>
-					<h6>COMPLETELY</h6>
-					<h6>USELESS</h6>
-					<h6>MENU</h6>
-					<li onClick={() => handleHamburgerClick("slow")}>Shop</li>
-					<li onClick={() => handleHamburgerClick("slow")}>Vote</li>
-					<li onClick={() => handleHamburgerClick("slow")}>Suggest</li>
-					<li onClick={() => handleHamburgerClick("slow")}>Publish</li>
-					<li onClick={() => handleHamburgerClick("slow")}>Gallery</li>
-					{/* TODO: ends with Useless Space Progam: https://useless.space |
-						"We are too excited about this to even begin listing possibilities" */}
-					<li onClick={() => handleHamburgerClick("slow")}>Roadmap</li>
-					<li onClick={() => handleHamburgerClick("slow")}>About</li>
-					{/* TODO: FAQ such as https://codeium.com/faq but useless, i.e.:
-					// what is the meaning of life? 42. what is the meaning of the universe? 42
-					// what is the meaning of everything? 42. what is the meaning of nothing? 42. */}
-					<li onClick={() => handleHamburgerClick("slow")}>FAQ</li>{" "}
-				</ul>
 			</div>
 		</header>
 	);
