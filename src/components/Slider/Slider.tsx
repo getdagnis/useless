@@ -2,16 +2,12 @@
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
-import { useDeviceSize } from "react-device-sizes";
 
 import styles from "./Slider.module.sass";
 import { HERO_TITLES, TOP_10_STICKERS } from "@/src/base/constants";
 import { Button, Pagination, Sticker } from "@/src/components";
+import { useDeviceSize } from "react-device-sizes";
 
-interface SliderProps {}
-
-// Dynamic font size for longer stickers (so all fit within two lines at least on desktop)
-const DYNAMIC_FONT_SIZE_DIVIDER = 31;
 // Sticker appears after the title is read, based on title length. Delay is in seconds
 // I.e. — 6 words * this. Average reading speed is 240 words/min. 60/240 = 0.25s
 const STICKER_DELAY_MULTIPLIER = 0.28;
@@ -25,7 +21,7 @@ const swipeableConfig = {
 	trackMouse: true,
 };
 
-const Slider: React.FC<SliderProps> = () => {
+const Slider: React.FC = () => {
 	const [activeSlide, setActiveSlide] = useState(0);
 	const [isHovered, setIsHovered] = useState(false);
 	const [allowHover, setAllowHover] = useState(false);
@@ -39,10 +35,7 @@ const Slider: React.FC<SliderProps> = () => {
 	const heroWords = combinedTitlesArray[0].split(" ").length;
 	const animationDelay = heroWords * STICKER_DELAY_MULTIPLIER;
 
-	let fontSize = TOP_10_STICKERS[0].text.length / DYNAMIC_FONT_SIZE_DIVIDER + "rem";
 	const deviceSizes = useDeviceSize();
-	// Font size for small mobile devices
-	fontSize = deviceSizes.xsDown ? "1.5rem" : fontSize;
 
 	// Allows arrow navigation between slides
 	useEffect(() => {
@@ -84,7 +77,7 @@ const Slider: React.FC<SliderProps> = () => {
 	};
 
 	// Zoom in sticker on hover
-	const handleHover = (hovered: boolean, e?: unknown) => {
+	const handleHover = (hovered: boolean, e?: React.MouseEvent) => {
 		if (hovered && allowHover) {
 			setIsHovered(true);
 			return;
@@ -101,6 +94,8 @@ const Slider: React.FC<SliderProps> = () => {
 		return () => clearTimeout(timer);
 	}, [activeSlide, animationDelay]);
 
+	console.log("🏜💀👾 deviceSizes.xsDown", deviceSizes.xsDown);
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.slider} {...handlers}>
@@ -113,7 +108,6 @@ const Slider: React.FC<SliderProps> = () => {
 									key={`${activeSlide}-${index}`}
 									style={{
 										animationDelay: `${index * TITLES_ANIMATION_DELAY}s`,
-										fontSize: fontSize,
 									}}
 								>
 									{title}
@@ -125,7 +119,6 @@ const Slider: React.FC<SliderProps> = () => {
 								key={activeSlide}
 								style={{
 									animationDelay: `0.4ms`,
-									fontSize: fontSize,
 								}}
 							>
 								{combinedTitlesArray}
@@ -146,11 +139,7 @@ const Slider: React.FC<SliderProps> = () => {
 						onMouseLeave={() => handleHover(false)}
 						onClick={() => setIsHovered(!isHovered)}
 					>
-						<Sticker
-							text={TOP_10_STICKERS[activeSlide].text}
-							fontSize={fontSize}
-							isHovered={isHovered}
-						/>
+						<Sticker text={TOP_10_STICKERS[activeSlide].text} isHovered={isHovered} />
 					</div>
 				)}
 
@@ -163,14 +152,13 @@ const Slider: React.FC<SliderProps> = () => {
 						<h6>COMPLETELY USELESS BUTTONS</h6>
 						<div className={styles.buttonWrapper}>
 							<div className={styles.btn1}>
-								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
+								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} isPrimary />
 							</div>
 							<div className={styles.btn2}>
 								<Button
 									id="overthinkLater"
 									text="Overthink Later"
 									onClick={() => handleSlideClick("Down")}
-									isSecondary
 								/>
 							</div>
 						</div>

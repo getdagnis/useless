@@ -27,11 +27,7 @@ export const HERO_TITLES: string[][] = [
 		" of yourself By Turning Any Object into ",
 		" a Joke That Nobody Gets.",
 	],
-	[
-		"We are Useless. AI is everything.",
-		"Now get yourself together. ",
-		"Buy now and overthink later.",
-	],
+	["Now get yourself together. ", "Buy now and overthink later."],
 ];
 
 export const ABOUT = [
@@ -79,6 +75,7 @@ export const STICKERS: StickerProps[] = [
 	{ id: "tnpg", text: "TO TELEPORT PLEASE PUT BOTH HANDS HERE AND WAIT" },
 	{ id: "jiyp", text: "PULL! IF PULLING DOESN’T WORK THEN TRY PUSHING." },
 	{ id: "fnzm", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. UNLESS THEY ASK FOR IT" },
+	{ id: "fnzn", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. GO LICK PEOPLE IN OTHER ROOMS." },
 	{ id: "drks", text: "DO NOT TRUST THE INSTRUCTIONS ON THIS STICKER" },
 	{ id: "wwqj", text: "THERE’S NO ESCAPE. STOP SEARCHING." },
 	{ id: "huyi", text: "DO NOT LICK THIS STICKER FOR LONGER THAN 10 SECONDS" },

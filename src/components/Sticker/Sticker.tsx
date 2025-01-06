@@ -11,11 +11,16 @@ export interface StickerComponentProps {
 }
 
 export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
-	const [isLongSticker, setIsLongSticker] = React.useState(false);
+	const [isLongSticker] = React.useState(text.length > 40);
 	if (!text) {
-		console.warn("Sticker not found.");
+		console.log("🚨 *** Sticker not found! *** 🚨");
 		return null;
 	}
+
+	console.log("🏜💀👾 text.length", text.length);
+
+	console.log("🏜💀👾 text", text);
+	console.log("🏜💀👾 isLongSticker", isLongSticker);
 
 	const formattedText = text.split("{{br}}").map((line, index) => (
 		<React.Fragment key={index}>
@@ -24,17 +29,15 @@ export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 		</React.Fragment>
 	));
 
-	const longSticker = formattedText.some((line) => (line as unknown as string).length > 50);
-
 	return (
 		<div className={styles.stickerHolder}>
 			<div
-				className={`${longSticker ? styles.stickerLong : styles.sticker} ${
+				className={`${isLongSticker ? styles.stickerLong : styles.sticker} ${
 					isHovered ? styles.stickerHovered : ""
 				}`}
-				style={{ fontSize: fontSize ? fontSize : "1rem" }}
+				style={{ fontSize: fontSize ? fontSize : "" }}
 			>
-				{isMobile ? formattedText.join(" ") : formattedText}
+				{formattedText}
 			</div>
 		</div>
 	);
