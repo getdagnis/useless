@@ -19,8 +19,6 @@ const Header = (props: Props) => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	console.log("🏜💀👾 isMenuOpen", isMenuOpen);
-
 	useEffect(() => {
 		const handleEscapeKey = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {

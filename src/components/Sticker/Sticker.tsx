@@ -24,7 +24,7 @@ export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 		</React.Fragment>
 	));
 
-	const longSticker = formattedText.some((line) => typeof line === "string" && line.length > 50);
+	const longSticker = formattedText.some((line) => (line as unknown as string).length > 50);
 
 	return (
 		<div className={styles.stickerHolder}>
