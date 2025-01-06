@@ -7,7 +7,7 @@
   align-items: flex-end
   gap: 1rem
   top: 0
-  right: 0
+  right: -1px
   padding: 3rem 0
   width: fit-content
   min-width: fit-content
@@ -16,7 +16,7 @@
   color: white
   height: 100svh
   transform: translateX(100%)
-  transition: transform 0.3s ease-in-out, width 0.3s ease
+  transition: transform 0.4s ease-in-out, width 0.4s ease
   z-index: 99
   @media (max-width: 480px) or (max-aspect-ratio: 1/1)
     width: 100vw
@@ -41,6 +41,7 @@
   & h6
     letter-spacing: 1px
     font-weight: 400
+    font-size: 0.75rem
     margin-bottom: 0.2rem
     animation: fadeIn 5s ease 4s
     animation-fill-mode: backwards
@@ -64,17 +65,13 @@
     margin-bottom: 0.5rem
     letter-spacing: 0.5px
     background: transparent
-    transition: rotate 0.5s ease, transform 0.2s ease
+    transition: rotate 0.5s ease, transform 0.2s ease 4s, opacity 0.4s ease-in-out 4s
     @media (max-width: 480px) or (max-aspect-ratio: 1/1)
       font-size: 1.5rem
       letter-spacing: -0.5px
     &:hover
       // rotate: (360deg)
       z-index: 9999
-    &:active
-      position: absolute
-      scale: 0
-      transition: scale 0.5s ease
     &::after,
     &:hover::after
       content: ''
@@ -86,11 +83,23 @@
       background-color: white
       margin-top: 0.2rem
       transform: translateX(calc(110%))
-      transition: transform 0.01s ease-in-out
+      transition: transform 0.01s ease-in-out, opacity 0.01s ease-in-out 4s
     &:hover::after
       transform: translateX(0)
-      transition: transform 0.3s ease-in-out
+      transition: transform 0.4s ease-in-out
     &::after
       opacity: 0
       @media (any-hover: hover)
         opacity: 1
+    &:active::after
+      transform: scale(0)
+      opacity: 0
+      transform-origin: center
+      transition: transform 0.1s ease-in-out
+
+li .hidden
+      position: absolute
+      transform: scale(0)
+      transform-origin: center
+      opacity: 0
+      transition: transform 0.2s ease
