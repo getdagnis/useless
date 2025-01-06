@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { isMobile } from "react-device-detect";
 import { useDeviceSize } from "react-device-sizes";
@@ -60,11 +60,14 @@ const Slider: React.FC<SliderProps> = () => {
 		};
 	}, []);
 
-	// Allows swipe navigation between slides both on mobile and desktop
 	const handlers = useSwipeable({
 		onSwiped: (eventData) => {
-			eventData.dir === "Right" && !isFirstSlide && handleSlideClick("Left");
-			eventData.dir === "Left" && !isLastSlide && handleSlideClick("Right");
+			if (eventData.dir === "Right" && !isFirstSlide) {
+				handleSlideClick("Left");
+			}
+			if (eventData.dir === "Left" && !isLastSlide) {
+				handleSlideClick("Right");
+			}
 		},
 		...swipeableConfig,
 	});
@@ -81,7 +84,7 @@ const Slider: React.FC<SliderProps> = () => {
 	};
 
 	// Zoom in sticker on hover
-	const handleHover = (hovered: boolean) => {
+	const handleHover = (hovered: boolean, e?: unknown) => {
 		if (hovered && allowHover) {
 			setIsHovered(true);
 			return;
@@ -91,11 +94,12 @@ const Slider: React.FC<SliderProps> = () => {
 
 	// Delay possibility to unintentionally zoom in sticker on its initial entering
 	useEffect(() => {
+		setAllowHover(false);
 		const timer = setTimeout(() => {
 			setAllowHover(true);
-		}, animationDelay * 1000 + 700);
+		}, animationDelay * 1000 + 500);
 		return () => clearTimeout(timer);
-	}, [activeSlide]);
+	}, [activeSlide, animationDelay]);
 
 	return (
 		<div className={styles.container}>
@@ -118,6 +122,7 @@ const Slider: React.FC<SliderProps> = () => {
 
 						{isMobile && deviceSizes.xsDown && (
 							<h1
+								key={activeSlide}
 								style={{
 									animationDelay: `0.4ms`,
 									fontSize: fontSize,
@@ -133,14 +138,13 @@ const Slider: React.FC<SliderProps> = () => {
 				{!isLastSlide && (
 					<div
 						key={activeSlide}
-						className={`${styles.stickerWrapper} ${
-							isHovered && !isMobile && styles.stickerHovered
-						}`}
+						className={`${styles.stickerWrapper} ${isHovered && styles.stickerHovered}`}
 						style={{
 							animationDelay: `${animationDelay}s`,
 						}}
 						onMouseEnter={() => handleHover(true)}
 						onMouseLeave={() => handleHover(false)}
+						onClick={() => setIsHovered(!isHovered)}
 					>
 						<Sticker
 							text={TOP_10_STICKERS[activeSlide].text}

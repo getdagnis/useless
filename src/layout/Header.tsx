@@ -8,7 +8,14 @@ interface Props {}
 
 const Header = (props: Props) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const handleHamburgerClick = () => {
+
+	const handleHamburgerClick = (slow?: string) => {
+		if (slow === "slow") {
+			setTimeout(() => {
+				setIsMenuOpen(!isMenuOpen);
+			}, 4000);
+			return;
+		}
 		setIsMenuOpen(!isMenuOpen);
 	};
 
@@ -59,13 +66,22 @@ const Header = (props: Props) => {
 			</div>
 			<div className={`${styles.menu} ${isMenuOpen && styles["is-active"]}`}>
 				<ul>
-					<h6>COMPLETELY USELESS MENU</h6>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Shop</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Vote</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Suggest</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Publish</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>Gallery</li>
-					<li onClick={() => setIsMenuOpen(!isMenuOpen)}>About</li>
+					<h6>COMPLETELY</h6>
+					<h6>USELESS</h6>
+					<h6>MENU</h6>
+					<li onClick={() => handleHamburgerClick("slow")}>Shop</li>
+					<li onClick={() => handleHamburgerClick("slow")}>Vote</li>
+					<li onClick={() => handleHamburgerClick("slow")}>Suggest</li>
+					<li onClick={() => handleHamburgerClick("slow")}>Publish</li>
+					<li onClick={() => handleHamburgerClick("slow")}>Gallery</li>
+					{/* TODO: ends with Useless Space Progam: https://useless.space |
+						"We are too excited about this to even begin listing possibilities" */}
+					<li onClick={() => handleHamburgerClick("slow")}>Roadmap</li>
+					<li onClick={() => handleHamburgerClick("slow")}>About</li>
+					{/* TODO: FAQ such as https://codeium.com/faq but useless, i.e.:
+					// what is the meaning of life? 42. what is the meaning of the universe? 42
+					// what is the meaning of everything? 42. what is the meaning of nothing? 42. */}
+					<li onClick={() => handleHamburgerClick("slow")}>FAQ</li>{" "}
 				</ul>
 			</div>
 		</header>

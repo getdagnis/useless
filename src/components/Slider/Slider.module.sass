@@ -34,7 +34,9 @@
 
 .stickerHovered
   transition: 0.2s 0.2s
-  transform: translate3d(5%, -5vh, 20px) scale(1.5) rotate(-25deg)
+  transform: translate3d(5%, -6vh, 20px) scale(1.5) rotate(-25deg)
+  @media (max-width: 600px)
+    transform: translate3d(0%, -6vh, 20px) rotate(-25deg) scale(1.2)
 
 .paginationWrapper
   display: flex
