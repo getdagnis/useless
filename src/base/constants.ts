@@ -27,7 +27,11 @@ export const HERO_TITLES: string[][] = [
 		" of yourself By Turning Any Object into ",
 		" a Joke That Nobody Gets.",
 	],
-	["Now get yourself together. ", "Buy now and overthink later."],
+	[
+		"We are Useless. AI is everything.",
+		"Now get yourself together. ",
+		"Buy now and overthink later.",
+	],
 ];
 
 export const ABOUT = [
@@ -114,6 +118,8 @@ export const STICKERS: StickerProps[] = [
 	{ id: "jvgm", text: "PLEASE DO NOT CONFUSE THIS VODKA CONTAINER FOR WATER" },
 	{ id: "uweo", text: "IN CASE OF WORK OVERLOAD OPEN THESE SELF DESTRUCTION DOORS" },
 	{ id: "eklf", text: "IN CASE OF A WET FLOOR PLEASE KEEP CALM AND SWIM TO SAFETY" },
+	{ id: "ekdf", text: "AI IS EVIL. PLEASE DO NOT LICK IT" },
+	{ id: "ektf", text: "AI IS EVERYTHING. WE ARE USELESS." },
 ];
 
 export const TOP_10_STICKERS: StickerProps[] = [
@@ -121,7 +127,7 @@ export const TOP_10_STICKERS: StickerProps[] = [
 	{ id: "ypse", text: "DO NOT ALARM THIS DOOR. {{br}}IT COULD BE SLEEPING." },
 	{ id: "ybkn", text: "CONGRATULATIONS! YOU HAVE {{br}}FOUND THE DOOR." },
 	{ id: "ywfr", text: "PLEASE WAIT HERE UNTIL I HAVE {{br}}TIME FOR YOUR BULLSHIT." },
-	{ id: "fnzm", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. UNLESS THEY PAY FOR IT." },
+	{ id: "fnzm", text: "PLEASE DO NOT LICK PEOPLE IN THIS ROOM. UNLESS THEY ASK." },
 	{ id: "fsud", text: "THINK OF SOMETHING SAD LIKE A BABY SHARK BEING EATEN BY A KITTEN." },
 	{ id: "eklf", text: "IN CASE OF A WET FLOOR PLEASE KEEP CALM AND SWIM TO SAFETY." },
 	{ id: "eood", text: "INSTRUCTIONS ON THIS STICKER CAN BE MISLEADING." },
