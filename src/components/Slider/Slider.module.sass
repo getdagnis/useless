@@ -110,8 +110,7 @@
   align-items: center
   cursor: pointer
   z-index: 1
-  animation: arrowsShrink 0.3s ease
-  animation-fill-mode: backwards
+  // animation-delay: 5s
 
 .arrowContainerLeft
   left: 0
@@ -133,6 +132,12 @@
   //   cursor: pointer
   //   opacity: 0
 
+.arrowContainer::after
+  @media (min-width: 601px)  // Desktop only
+    animation: brieflyShow 10s ease-in-out infinite
+    animation-delay: 10s
+    animation-fill-mode: backwards
+
 .arrowContainer:active::after,
 .arrowContainerLeft:active::after
   translate: 50% 0
@@ -145,6 +150,7 @@
 .arrowContainerLeft:hover::after
   opacity: 1
   translate: 0
+  animation: none
 
 .sliderBg
   position: fixed
@@ -166,6 +172,14 @@
     opacity: 0
   100%
     opacity: 1
+
+@keyframes brieflyShow
+  0%, 60%
+    opacity: 0
+  80%
+    opacity: 1
+  100%
+    opacity: 0
 
 @keyframes dropAnimation
   0%
@@ -257,11 +271,10 @@
     transform: scale(1)
     animation-timing-function: ease-out
 
-@keyframes arrowsShrink
+@keyframes pulseOpacity
   0%
-    width: 80svw
-    height: 60svh
-    transform: translate(0, -30svh)
+    opacity: 0
+  50%
+    opacity: 0
   100%
-    width: 30svw
-    height: 30svh
+    opacity: 1

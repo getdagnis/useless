@@ -14,10 +14,6 @@ export function Sticker({ text, fontSize, isHovered }: StickerComponentProps) {
 	const [isLongSticker] = React.useState(text.length > 40);
 	const [isVeryLongSticker] = React.useState(text.length > 55);
 
-	console.log("🏜💀👾 text.length", text.length);
-	console.log("🏜💀👾 text", text);
-	console.log("🏜💀👾 isLongSticker", isLongSticker);
-
 	const formattedText = text.split("{{br}}").map((line, index) => (
 		<React.Fragment key={index}>
 			{line}
