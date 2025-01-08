@@ -22,12 +22,13 @@ const Header = () => {
 					height={184}
 					alt="Completely Useless Stickers"
 					priority
+					onClick={() => window.location.reload()}
 				/>
 			</div>
-			<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+			<Menu isOpen={isMenuOpen} onClose={() => {}} />
 			<div
 				className={`${styles.hamburger} ${styles["hamburger--collapser"]} ${
-					isMenuOpen && styles["is-active"]
+					isMenuOpen ? styles["is-active"] : ""
 				}`}
 				onClick={handleHamburgerClick}
 			>
