@@ -54,7 +54,25 @@ const Slider: React.FC = () => {
 	}, []);
 
 	const handlers = useSwipeable({
+		onSwiping: (eventData) => {
+			const slider = document.querySelector(`.${styles.slider}`);
+			if (!slider) return;
+
+			if (
+				(eventData.dir === "Left" && !isLastSlide) ||
+				(eventData.dir === "Right" && !isFirstSlide)
+			) {
+				(slider as HTMLElement).style.transform = `translateX(${eventData.deltaX}px)`;
+				(slider as HTMLElement).style.transition = "none";
+			}
+		},
 		onSwiped: (eventData) => {
+			const slider = document.querySelector(`.${styles.slider}`);
+			if (!slider) return;
+
+			(slider as HTMLElement).style.transform = "";
+			(slider as HTMLElement).style.transition = "transform 0.3s ease";
+
 			if (eventData.dir === "Right" && !isFirstSlide) {
 				handleSlideClick("Left");
 			}
