@@ -120,6 +120,10 @@
   font-size: 1.25rem
   width: 100%
   animation: fadeIn 2s ease 4s
+  animation-fill-mode: backwards
+
+.rulesContainer > div
+  margin-bottom: 1rem
 
 .rulesBtn
   margin-top: 1.5rem
@@ -129,13 +133,6 @@
   border-radius: 0.2rem
   text-transform: uppercase
   cursor: pointer
-
-.score
-  text-align: center
-  font-size: 1.5rem
-  margin-bottom: 1rem
-  color: #fff
-  background: crimson
 
 .menuItems
   flex: 1
@@ -155,14 +152,16 @@
   bottom: 1rem
   right: 1rem
   animation: fadeIn 2s ease 1s
+  animation-fill-mode: backwards
 
   & h2
     margin: 1rem 0
-    color: red
     font-size: 1.5rem
     font-weight: 400
     letter-spacing: 0.5px
     text-align: right
+    animation: fadeIn 2s ease 5s
+    animation-fill-mode: backwards
 
 .uselessList
   display: flex
@@ -178,26 +177,39 @@
   display: inline-block
   list-style: none
   width: 1rem
+  opacity: 0.75
   margin: 0.25rem !important
   height: 1rem !important
   width: 1rem !important
   padding: !important
-  background-image: url('/u-logo.svg')
+  background-image: url('/pagination-u.svg')
   background-size: contain
   background-repeat: no-repeat
   background-position: center
-  animation: fadeIn 2s ease
+  animation: fadeInUseless 0.1s ease
+  animation-fill-mode: backwards
 
 .clicked
-  animation: clickEffect 0.3s ease-out
+  animation: clickEffect 1s ease-in-out
   transition: rotate 1s ease-out
+  background: black
+
+.liInner > .countAbove
+  position: absolute
+  top: -2rem
+  left: 50%
+  transform: translateX(-50%)
+  text-align: center
+  width: 100%
+  height: 100%
+  z-index: 9999
 
 @keyframes clickEffect
   0%
     opacity: 1
     scale: 1
     color: #d80019
-  50%
+  20%
     scale: 5
     opacity: 1
     // rotate: 360deg
@@ -210,6 +222,12 @@
     color: white
 
 @keyframes fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes fadeInUseless
   0%
     opacity: 0
   100%

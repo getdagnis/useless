@@ -13,12 +13,13 @@ export const Pagination = ({ countOfPages, activePage, onClick }: PaginationProp
 		<div>
 			<ul className={styles.pagination}>
 				{Array.from({ length: countOfPages }, (_, index) => (
-					<li
-						key={index}
-						className={index === activePage ? styles.active : ""}
-						onClick={() => onClick(index)}
-						data-testid={`pagination-item-${index}`}
-					></li>
+					<li key={index} onClick={() => onClick(index)} data-testid={`pagination-item-${index}`}>
+						<div
+							className={`${index === activePage ? styles.active : ""} ${
+								index < activePage ? styles.slideInFromRight : styles.slideInFromLeft
+							}`}
+						></div>
+					</li>
 				))}
 			</ul>
 		</div>

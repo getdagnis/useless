@@ -13,6 +13,10 @@
     scale: 1.5
 
 .pagination li
+  list-style: none
+  position: relative
+
+.pagination li > div
   width: 0.5rem
   height: 0.5rem
   border-radius: 50%
@@ -29,10 +33,38 @@
     scale: 0.7
     margin: 0 50vw
 
-.pagination li.active
+.pagination li > div.active
   background: url("/pagination-u.svg") center center no-repeat
   border: none
   height: 1rem
   width: 1rem
   &:hover
     scale: 1
+
+.slideInFromLeft
+  animation: slideInFromLeft 0.3s ease
+  animation-delay: 0.3s
+  animation-fill-mode: backwards
+
+.slideInFromRight
+  animation: slideInFromRight 0.3s ease
+  animation-delay: 0.3s
+  animation-fill-mode: backwards
+
+@keyframes slideInFromLeft
+  0%
+    transform: translateX(-100%)
+    opacity: 0
+
+  100%
+    transform: translateX(0)
+    opacity: 1
+
+@keyframes slideInFromRight
+  0%
+    transform: translateX(100%)
+    opacity: 0
+
+  100%
+    transform: translateX(0)
+    opacity: 1
