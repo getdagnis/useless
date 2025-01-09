@@ -3,6 +3,7 @@ import { JSX, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import styles from "./Menu.module.sass";
+import router from "next/router";
 
 export interface MenuProps {
 	isOpen: boolean;
@@ -233,7 +234,7 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 						)}
 					</>
 				) : (
-					// Real menu with navigation links
+					// The real menu with navigation links
 					<div className={styles.menuItems}>
 						{MENU_ITEMS.map((item) => (
 							<li key={item.id}>
