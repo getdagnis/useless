@@ -55,23 +55,30 @@ const Slider: React.FC = () => {
 
 	const handlers = useSwipeable({
 		onSwiping: (eventData) => {
-			const slider = document.querySelector(`.${styles.slider}`);
-			if (!slider) return;
+			const sliderText = document.querySelector(`.${styles.sliderText}`);
+			const stickerWrapper = document.querySelector(`.${styles.stickerWrapper}`);
+			if (!sliderText || !stickerWrapper) return;
 
 			if (
 				(eventData.dir === "Left" && !isLastSlide) ||
 				(eventData.dir === "Right" && !isFirstSlide)
 			) {
-				(slider as HTMLElement).style.transform = `translateX(${eventData.deltaX}px)`;
-				(slider as HTMLElement).style.transition = "none";
+				const transform = `translateX(${eventData.deltaX}px)`;
+				(sliderText as HTMLElement).style.transform = transform;
+				(stickerWrapper as HTMLElement).style.transform = transform;
+				(sliderText as HTMLElement).style.transition = "none";
+				(stickerWrapper as HTMLElement).style.transition = "none";
 			}
 		},
 		onSwiped: (eventData) => {
-			const slider = document.querySelector(`.${styles.slider}`);
-			if (!slider) return;
+			const sliderText = document.querySelector(`.${styles.sliderText}`);
+			const stickerWrapper = document.querySelector(`.${styles.stickerWrapper}`);
+			if (!sliderText || !stickerWrapper) return;
 
-			(slider as HTMLElement).style.transform = "";
-			(slider as HTMLElement).style.transition = "transform 0.3s ease";
+			(sliderText as HTMLElement).style.transform = "";
+			(stickerWrapper as HTMLElement).style.transform = "";
+			(sliderText as HTMLElement).style.transition = "transform 0.3s ease";
+			(stickerWrapper as HTMLElement).style.transition = "transform 0.3s ease";
 
 			if (eventData.dir === "Right" && !isFirstSlide) {
 				handleSlideClick("Left");
