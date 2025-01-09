@@ -25,7 +25,7 @@ const Header = () => {
 					onClick={() => window.location.reload()}
 				/>
 			</div>
-			<Menu isOpen={isMenuOpen} onClose={() => {}} />
+			<Menu isOpen={isMenuOpen} onClose={() => handleHamburgerClick()} />
 			<div
 				className={`${styles.hamburger} ${styles["hamburger--collapser"]} ${
 					isMenuOpen ? styles["is-active"] : ""
