@@ -1,31 +1,107 @@
 "use client";
-import { JSX, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import styles from "./Menu.module.sass";
-import router from "next/router";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
+import { isMobile } from "react-device-detect";
 
 export interface MenuProps {
 	isOpen: boolean;
 	onClose: () => void;
 }
 
-export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
-	const [showRules, setShowRules] = useState(false);
-	const [gameStarted, setGameStarted] = useState(false);
-	const [uselessCount, setUselessCount] = useState(42);
+interface MenuItem {
+	id: number;
+	label: string;
+}
+
+const smallExplosion = {
+	numberOfPieces: 50,
+	recycle: false,
+	gravity: 0.2,
+	initialVelocityX: 15,
+	initialVelocityY: 30,
+	friction: 0.95,
+	colors: ["#d80019", "white"],
+};
+
+const largeExplosion = {
+	numberOfPieces: isMobile ? 1000 : 3000,
+	recycle: true,
+	gravity: 0.2,
+	initialVelocityX: 20,
+	initialVelocityY: 40,
+	friction: 0.95,
+	colors: ["#d80019", "white"],
+};
+
+const GAME_INITIAL_STATE = {
+	rules: false,
+	gameStarted: false,
+	uselessCount: 30,
+	isGameCompleted: false,
+	showCongrats: false,
+	isLargeExploding: false,
+	showRealMenu: false,
+};
+
+const GAME_TEST_STATE = {
+	rules: false,
+	gameStarted: true,
+	uselessCount: 5,
+	isGameCompleted: false,
+	showCongrats: false,
+	isLargeExploding: false,
+	showRealMenu: false,
+	isTestState: false,
+};
+
+export function Menu({ isOpen, onClose }: MenuProps) {
 	const [clickedId, setClickedId] = useState<number | null>(null);
-	const [showCongrats, setShowCongrats] = useState(false);
-	const [isGameCompleted, setIsGameCompleted] = useState(false);
+	const [showRules, setShowRules] = useState<boolean>(
+		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.rules : GAME_INITIAL_STATE.rules
+	);
+	const [gameStarted, setGameStarted] = useState<boolean>(
+		GAME_TEST_STATE.isTestState
+			? GAME_TEST_STATE.gameStarted
+			: Boolean(localStorage.getItem("menuGameStarted"))
+	);
+	const [uselessCount, setUselessCount] = useState<number>(
+		GAME_TEST_STATE.isTestState
+			? GAME_TEST_STATE.uselessCount
+			: Number(localStorage.getItem("uselessCount")) || GAME_INITIAL_STATE.uselessCount
+	);
+	const [isGameCompleted, setIsGameCompleted] = useState<boolean>(
+		GAME_TEST_STATE.isTestState
+			? GAME_TEST_STATE.isGameCompleted
+			: Boolean(localStorage.getItem("menuGameCompleted"))
+	);
+	const [showCongrats, setShowCongrats] = useState<boolean>(
+		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.showCongrats : false
+	);
+	const [isLargeExploding, setIsLargeExploding] = useState<boolean>(
+		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.isLargeExploding : false
+	);
+	const [showRealMenu, setShowRealMenu] = useState<boolean>(
+		GAME_TEST_STATE.isTestState
+			? GAME_TEST_STATE.showRealMenu
+			: Boolean(localStorage.getItem("menuGameCompleted"))
+	);
+	const [timeSpent, setTimeSpent] = useState<number>(0);
 
 	const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const gameTimers = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
-	const allHiddenChecked = useRef(false);
+	const allHiddenChecked = useRef<boolean>(false);
+	const startTimeRef = useRef<number | null>(null);
+	const timerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-	const MENU_ITEMS = [
+	const { width, height } = useWindowSize();
+
+	const MENU_ITEMS: MenuItem[] = [
 		{ id: 0, label: "Shop" },
 		{ id: 1, label: "Vote" },
-		{ id: 2, label: "Suggest" },
 		{ id: 3, label: "Publish" },
 		{ id: 4, label: "Gallery" },
 		{ id: 5, label: "Roadmap" },
@@ -57,12 +133,27 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (isOpen && !startTimeRef.current) {
+			startTimeRef.current = Date.now();
+			timerIntervalRef.current = setInterval(() => {
+				if (startTimeRef.current) {
+					const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+					setTimeSpent(elapsed);
+				}
+			}, 1000);
+		}
+
+		return () => {
+			if (timerIntervalRef.current) {
+				clearInterval(timerIntervalRef.current);
+			}
+		};
+	}, [isOpen]);
+
 	const startGame = () => {
 		setShowRules(false);
 		setGameStarted(true);
-
-		// No need to do anything else here since items are already in the game cycle
-		// and gameStarted state will allow them to start appearing
 	};
 
 	const uselessMenuGame = (index: number) => {
@@ -105,7 +196,7 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 	};
 
 	const handleMenuItemClick = (index: number) => {
-		if (isGameCompleted) return; // Skip game logic if completed
+		if (isGameCompleted) return;
 
 		setClickedId(index);
 		setTimeout(() => setClickedId(null), 300);
@@ -119,16 +210,18 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 			uselessMenuGame(index);
 
 			// Show congrats when game is finished
-			if (newCount <= 1) {
+			if (newCount === 0) {
 				setShowCongrats(true);
-				localStorage.setItem("menuGameCompleted", "true");
+				setIsLargeExploding(true);
+				setGameStarted(false);
+				setShowRules(false);
+				if (!GAME_TEST_STATE.isTestState) {
+					localStorage.setItem("menuGameCompleted", "true");
+				}
 				setIsGameCompleted(true);
-				timeoutId.current = setTimeout(() => {
-					onClose();
-					if (timeoutId.current !== null) {
-						clearTimeout(timeoutId.current);
-					}
-				}, 3000);
+				setTimeout(() => {
+					setIsLargeExploding(false);
+				}, 6000);
 			}
 		} else {
 			uselessMenuGame(index);
@@ -161,23 +254,45 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 	}, [onClose]);
 
 	useEffect(() => {
-		const completed = localStorage.getItem("menuGameCompleted") === "true";
-		setIsGameCompleted(completed);
+		if (!GAME_TEST_STATE.isTestState) {
+			const completed = localStorage.getItem("menuGameCompleted") === "true";
+			setIsGameCompleted(completed);
+			setShowRealMenu(completed);
+		}
 	}, []);
 
 	return (
 		<div className={`${styles.menu} ${isOpen && styles["is-active"]}`}>
 			<ul className={styles.menuList}>
-				{!isGameCompleted ? (
+				{!showRealMenu ? (
 					<>
 						<h6>COMPLETELY</h6>
 						<h6>USELESS</h6>
 						<h6>MENU</h6>
 
 						{showCongrats && (
-							<div className={styles.congratsContainer}>
+							<div className={styles.congratsContainer} onClick={() => setShowCongrats(false)}>
+								<Confetti
+									width={width}
+									height={height}
+									run={isLargeExploding}
+									{...largeExplosion}
+									className={styles.confetti}
+								/>
 								<h2>Congratulations!</h2>
-								<p>You've unlocked the real menu!</p>
+								<p>
+									You just wasted {timeSpent} seconds <br /> of your life by trying to unlock a menu
+									on a Useless website!
+								</p>
+								<div
+									className={styles.rulesBtn}
+									onClick={() => {
+										setShowCongrats(false);
+										setShowRealMenu(true);
+									}}
+								>
+									Real Menu
+								</div>
 							</div>
 						)}
 
@@ -193,7 +308,8 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 								</>
 							</div>
 						)}
-						{!showRules && (
+						{/* PRE-GAME MENU ITEMS & GAME MENU ITEMS */}
+						{!showRules && !isGameCompleted && (
 							<div className={styles.menuItems}>
 								{MENU_ITEMS.map((item) => (
 									<li key={item.id}>
@@ -213,8 +329,12 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 								))}
 							</div>
 						)}
+						{/* div with useless logo items and count */}
 						{!showRules && gameStarted && (
 							<div className={styles.uselessDiv}>
+								{(uselessCount === 21 || uselessCount === 11) && (
+									<Confetti width={width} height={height} run={true} {...smallExplosion} />
+								)}
 								<h2 className={styles.uselessCount}>
 									<span className={`${clickedId !== null && gameStarted ? styles.clicked : ""}`}>
 										{uselessCount}
@@ -234,14 +354,26 @@ export function Menu({ isOpen, onClose }: MenuProps): JSX.Element {
 						)}
 					</>
 				) : (
-					// The real menu with navigation links
+					// The "REAL" MEANU with navigation links when game is completed or skipped
 					<div className={styles.menuItems}>
 						{MENU_ITEMS.map((item) => (
-							<li key={item.id}>
+							<li key={item.id} className={styles.realMenuItem}>
 								<Link
 									href={`/${item.label.toLowerCase()}`}
 									className={styles.liInner}
-									onClick={onClose}
+									onClick={(e) => {
+										(e.target as HTMLElement).style.scale = "0";
+										setTimeout(() => ((e.target as HTMLElement).style.scale = "1"), 200);
+										// Clear any remaining game timeouts
+										if (timeoutId.current !== null) {
+											clearTimeout(timeoutId.current);
+										}
+										gameTimers.current.forEach((timer) => {
+											clearTimeout(timer);
+										});
+										gameTimers.current.clear();
+										onClose();
+									}}
 								>
 									{item.label}
 								</Link>
