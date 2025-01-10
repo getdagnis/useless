@@ -18,7 +18,7 @@
   transition: transform 0.4s ease-in-out, width 0.4s ease
   z-index: 99
   @media (max-width: 480px) or (max-aspect-ratio: 1/1)
-    width: 100vw
+    width: 101vw
     align-items: flex-end
 
   &.is-active
@@ -119,7 +119,7 @@
   margin-top: 3rem
   font-size: 1.25rem
   width: 100%
-  animation: fadeIn 2s ease 4s
+  animation: fadeIn 2s ease 2s
   animation-fill-mode: backwards
 
 .rulesContainer > div
@@ -160,7 +160,7 @@
     font-weight: 400
     letter-spacing: 0.5px
     text-align: right
-    animation: fadeIn 2s ease 5s
+    animation: fadeIn 2s ease 3s
     animation-fill-mode: backwards
 
 .uselessList
@@ -170,7 +170,7 @@
   justify-content: flex-end
   align-items: flex-end
   height: 100%
-  width: 100%
+  width: 15rem
   padding: 0
 
 .uselessItem
@@ -193,31 +193,46 @@
   animation: clickEffect 1s ease-in-out
   transition: rotate 1s ease-out
   background: black
+  border-radius: 50%
+  z-index: 9999
 
 .liInner > .countAbove
   position: absolute
   top: -2rem
   left: 50%
   transform: translateX(-50%)
-  background: black
+  padding: 0.1rem
+  background: #1d0202
+  border-radius: 50%
   text-align: center
-  width: 100%
-  height: 100%
-  z-index: 9999
+  width: fit-content
+  height: fit-content
+
+.confetti
+  z-index: 9990
+  animation: fadeout 1s ease-in-out 5s
+  animation-fill-mode: forwards
+
+@keyframes fadeout
+  0%
+    opacity: 1
+  100%
+    opacity: 0
 
 @keyframes clickEffect
   0%
     opacity: 1
     scale: 1
-    color: #d80019
+    color: #ff004c
   20%
     scale: 5
     opacity: 1
-    // rotate: 360deg
+    // rotate: 90deg
     color: crimson
   99%
     scale: 0
-    color: #d80019
+    color: #ff004c
+    opacity: 1
   100%
     scale: 0
     color: white
@@ -238,20 +253,30 @@
   position: fixed
   top: 50%
   left: 50%
+  width: 100%
+  height: 100%
   transform: translate(-50%, -50%)
-  background: rgba(255, 255, 255, 0.95)
+  background: transparent
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
   padding: 2rem
   border-radius: 8px
   text-align: center
-  z-index: 1000
+  z-index: 999
   animation: fadeIn 0.5s ease-in-out
 
   h2
     margin-bottom: 1rem
-    color: #333
+    z-index: 9999
 
   p
-    color: #666
+    font-size: 1.2rem
+    z-index: 9999
+
+  .rulesBtn
+    z-index: 9999
 
 @keyframes fadeIn
   from
