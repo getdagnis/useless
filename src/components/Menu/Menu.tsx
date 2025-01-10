@@ -63,32 +63,14 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 	const [showRules, setShowRules] = useState<boolean>(
 		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.rules : GAME_INITIAL_STATE.rules
 	);
-	const [gameStarted, setGameStarted] = useState<boolean>(
-		GAME_TEST_STATE.isTestState
-			? GAME_TEST_STATE.gameStarted
-			: Boolean(localStorage.getItem("menuGameStarted"))
-	);
-	const [uselessCount, setUselessCount] = useState<number>(
-		GAME_TEST_STATE.isTestState
-			? GAME_TEST_STATE.uselessCount
-			: Number(localStorage.getItem("uselessCount")) || GAME_INITIAL_STATE.uselessCount
-	);
-	const [isGameCompleted, setIsGameCompleted] = useState<boolean>(
-		GAME_TEST_STATE.isTestState
-			? GAME_TEST_STATE.isGameCompleted
-			: Boolean(localStorage.getItem("menuGameCompleted"))
-	);
-	const [showCongrats, setShowCongrats] = useState<boolean>(
-		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.showCongrats : false
-	);
+	const [gameStarted, setGameStarted] = useState<boolean>(GAME_TEST_STATE.gameStarted);
+	const [uselessCount, setUselessCount] = useState<number>(GAME_TEST_STATE.uselessCount);
+	const [isGameCompleted, setIsGameCompleted] = useState<boolean>(GAME_TEST_STATE.isGameCompleted);
+	const [showCongrats, setShowCongrats] = useState<boolean>(GAME_TEST_STATE.showCongrats);
 	const [isLargeExploding, setIsLargeExploding] = useState<boolean>(
-		GAME_TEST_STATE.isTestState ? GAME_TEST_STATE.isLargeExploding : false
+		GAME_TEST_STATE.isLargeExploding
 	);
-	const [showRealMenu, setShowRealMenu] = useState<boolean>(
-		GAME_TEST_STATE.isTestState
-			? GAME_TEST_STATE.showRealMenu
-			: Boolean(localStorage.getItem("menuGameCompleted"))
-	);
+	const [showRealMenu, setShowRealMenu] = useState<boolean>(GAME_TEST_STATE.showRealMenu);
 	const [timeSpent, setTimeSpent] = useState<number>(0);
 
 	const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -254,8 +236,14 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 	}, [onClose]);
 
 	useEffect(() => {
-		if (!GAME_TEST_STATE.isTestState) {
-			const completed = localStorage.getItem("menuGameCompleted") === "true";
+		// Initialize state from localStorage on client-side only
+		if (!GAME_TEST_STATE.isTestState && typeof window !== "undefined") {
+			const menuGameStarted = Boolean(localStorage.getItem("menuGameStarted"));
+			const storedCount = Number(localStorage.getItem("uselessCount"));
+			const completed = Boolean(localStorage.getItem("menuGameStarted"));
+
+			setGameStarted(menuGameStarted);
+			setUselessCount(storedCount || GAME_INITIAL_STATE.uselessCount);
 			setIsGameCompleted(completed);
 			setShowRealMenu(completed);
 		}
