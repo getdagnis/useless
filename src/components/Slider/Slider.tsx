@@ -175,13 +175,14 @@ const Slider: React.FC = () => {
 						<h6>COMPLETELY USELESS BUTTONS</h6>
 						<div className={styles.buttonWrapper}>
 							<div className={styles.btn1}>
-								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} isPrimary />
+								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
 							</div>
 							<div className={styles.btn2}>
 								<Button
 									id="overthinkLater"
 									text="Overthink Later"
 									onClick={() => handleSlideClick("Down")}
+									isSecondary
 								/>
 							</div>
 						</div>
@@ -214,7 +215,9 @@ const Slider: React.FC = () => {
 						onClick={(index) => setActiveSlide(index)}
 					/>
 				</div>
-				<div className={styles.sliderBg}>{TOP_10_STICKERS[activeSlide].text}</div>
+				<div key={"bg-" + activeSlide} className={styles.sliderBg}>
+					{TOP_10_STICKERS[activeSlide].text}
+				</div>
 			</div>
 		</div>
 	);
