@@ -308,10 +308,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 											}`}
 											onClick={() => handleMenuItemClick(item.id)}
 										>
-											{item.label}
-											{gameStarted && clickedId === item.id && (
-												<div className={styles.countAbove}>{uselessCount}</div>
-											)}
+											{gameStarted && clickedId === item.id ? uselessCount : item.label}
 										</div>
 									</li>
 								))}
