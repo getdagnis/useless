@@ -14,7 +14,7 @@ export interface ButtonProps {
 
 export function Button({ text, icon, id, isPrimary, isSecondary, size, onClick }: ButtonProps) {
 	return (
-		<div
+		<button
 			id={id}
 			className={
 				isPrimary
@@ -29,6 +29,6 @@ export function Button({ text, icon, id, isPrimary, isSecondary, size, onClick }
 		>
 			<span className={size ? size : "medium"}>{text}</span>{" "}
 			<span className={styles.icon}>{icon}</span>
-		</div>
+		</button>
 	);
 }
