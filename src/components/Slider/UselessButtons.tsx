@@ -7,20 +7,6 @@ interface UselessButtonsProps {
 }
 
 const UselessButtons = ({ onClick }: UselessButtonsProps) => {
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-	useEffect(() => {
-		const handleMouseMove = (e: MouseEvent) => {
-			setMousePosition({ x: e.clientX, y: e.clientY });
-		};
-
-		window.addEventListener("mousemove", handleMouseMove);
-
-		return () => {
-			window.removeEventListener("mousemove", handleMouseMove);
-		};
-	}, []);
-
 	return (
 		<div className={styles.buttonWrapper}>
 			<h6>COMPLETELY USELESS BUTTONS</h6>
@@ -28,15 +14,7 @@ const UselessButtons = ({ onClick }: UselessButtonsProps) => {
 				<div className={styles.btn1}>
 					<Button text="Buy Now" onClick={onClick} />
 				</div>
-				<div
-					className={styles.btn2}
-					style={{
-						position: "fixed",
-						left: `${mousePosition.x}px`,
-						top: `${mousePosition.y}px`,
-						transform: "translate(-50%, -50%)",
-					}}
-				>
+				<div className={styles.btn2}>
 					<Button id="overthinkLater" text="Overthink Later" onClick={onClick} isSecondary />
 				</div>
 			</div>
