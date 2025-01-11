@@ -5,7 +5,8 @@ import { isMobile } from "react-device-detect";
 
 import styles from "./Slider.module.sass";
 import { HERO_TITLES, TOP_10_STICKERS } from "@/src/base/constants";
-import { Button, Pagination, Sticker } from "@/src/components";
+import { Pagination, Sticker } from "@/src/components";
+import UselessButtons from "./UselessButtons";
 import { useDeviceSize } from "react-device-sizes";
 
 // Sticker appears after the title is read, based on title length. Delay is in seconds
@@ -172,20 +173,7 @@ const Slider: React.FC = () => {
 				time. Test how long is normal to play with them (ie, 5 times each button), for max time */}
 				{isLastSlide && (
 					<div className={styles.buttonWrapperWrapper}>
-						<h6>COMPLETELY USELESS BUTTONS</h6>
-						<div className={styles.buttonWrapper}>
-							<div className={styles.btn1}>
-								<Button text="Buy Now" onClick={() => handleSlideClick("Down")} />
-							</div>
-							<div className={styles.btn2}>
-								<Button
-									id="overthinkLater"
-									text="Overthink Later"
-									onClick={() => handleSlideClick("Down")}
-									isSecondary
-								/>
-							</div>
-						</div>
+						<UselessButtons onClick={() => handleSlideClick("Down")} />
 					</div>
 				)}
 

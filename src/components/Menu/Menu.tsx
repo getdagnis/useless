@@ -308,10 +308,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 											}`}
 											onClick={() => handleMenuItemClick(item.id)}
 										>
-											{item.label}
-											{gameStarted && clickedId === item.id && (
-												<div className={styles.countAbove}>{uselessCount}</div>
-											)}
+											{gameStarted && clickedId === item.id ? uselessCount : item.label}
 										</div>
 									</li>
 								))}
@@ -342,7 +339,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 						)}
 					</>
 				) : (
-					// The "REAL" MEANU with navigation links when game is completed or skipped
+					// The "REAL" MENU with navigation links when game is completed or skipped
 					<div className={styles.menuItems}>
 						{MENU_ITEMS.map((item) => (
 							<li key={item.id} className={styles.realMenuItem}>
