@@ -1,7 +1,9 @@
 {
-	"name": "useless-v1",
+	"name": "useless-stickers",
 	"version": "0.1.0",
-	"private": true,
+	"private": false,
+	"licence": "© 2025 Completely Useless Stickers. All rights reserved",
+	"author": "Completely Useless Stickers",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",

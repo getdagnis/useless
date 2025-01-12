@@ -21,44 +21,23 @@
   align-items: flex-start
   z-index: 99
 
-.btn1, .btn2
+.btn1 > button
   display: flex
-  transition: all 0.2s ease
 
-  button
-    display: flex
-
-    &.isSecondary
-      background: none
-      color: white
-      transition: all 0.2s ease 3s
-      z-index: 0
-
-    &:hover
-      background: black
-      color: white
-      rotate: 360deg
-      transform: translate3d(10px, -20%, 20px) scale(5.5) rotate(-25deg)
-      box-shadow: 1rem 0.5rem 0px rgba(0, 0, 0, 0.25)
-      transition: background 0.6s ease, color 0.3s ease-in, rotate 2s ease infinite, scale 0.5s ease, transform 0.3s ease, translate3d 0.3s ease-out
-      animation: vibrate-1 0.3s linear infinite both
-      animation-delay: 2s
-      z-index: 20
-
-    &.isSecondary:hover
-      background: none
-      animation: none
-      transform: none
-      scale: 1
+  &:hover
+    background: black
+    color: white
+    rotate: 360deg
+    transform: translate3d(10px, -20%, 20px) scale(5.5) rotate(-25deg)
+    box-shadow: 1rem 0.5rem 0px rgba(0, 0, 0, 0.25)
+    transition: background 0.6s ease, color 0.3s ease-in, rotate 2s ease infinite, scale 0.5s ease, transform 0.3s ease, translate3d 0.3s ease-out
+    animation: vibrate-1 0.3s linear infinite both
+    animation-delay: 2s
+    z-index: 20
 
     &:active
       transform: scale(100) rotate(180deg)
       transition: all 0.5s ease
-
-    &.isSecondary:active
-      scale: 0
-      transition: scale 0.1s ease-out
-      animation: none
 
     &.isIconButton
       span
@@ -66,27 +45,78 @@
         height: 1rem
         margin: 0.5rem
 
-    @keyframes vibrate-1
-      0%
-        translate: 0
-      20%
-        translate: -2px 2px
-      40%
-        translate: -2px -2px
-      60%
-        translate: 2px 2px
-      80%
-        translate: 2px -2px
-      100%
-        translate: 0
+  @keyframes vibrate-1
+    0%
+      translate: 0
+    20%
+      translate: -2px 2px
+    40%
+      translate: -2px -2px
+    60%
+      translate: 2px 2px
+    80%
+      translate: 2px -2px
+    100%
+      translate: 0
 
-.btn1
+.btn1 > button
   position: relative
-  z-index: 1
+  z-index: 99
 
 .btn2
-  z-index: 2
+  transition: opacity 0.3s ease
+
+.btn2 > button
+  z-index: 9
+  background: none
+  color: white
+  transition: all 0.2s ease 3s
+  z-index: 0
+  rotate: 0
+
+  &:hover
+    background: none
+    animation: none
+    transform: none
+    scale: 1
+
+.btn2.btn2Shrink > button:active
+  scale: 0
+  transition: scale 0.1s ease-out
+  animation: none
   pointer-events: none
 
-  button
-    pointer-events: all
+.btn2.btn2Grow > button:active
+  scale: 500
+  rotate: 360deg
+  opacity: 0
+  transition: scale 0.5s ease-out, rotate 0.5s ease, opacity 0.5s ease-out 0.25s
+  animation: none
+  pointer-events: none
+
+.btn2.btn2Grow.fadeOut
+  opacity: 0
+  transition: opacity 0.5s ease
+
+.loading
+  background: #e2001a
+  height: 2rem
+  position: fixed
+  bottom: 0rem
+  left: 0
+  z-index: 9999
+  padding: 0.5rem 1rem
+  transition: all 0.2s ease
+  overflow: hidden
+  animation: fadeIn 1s ease
+
+  p
+    position: fixed
+    bottom: 0.5rem
+    left: 1rem
+
+  @keywords fadeIn
+    0%
+    opacity: 0
+    100%
+    opacity: 1
