@@ -23,7 +23,9 @@ const swipeableConfig = {
 };
 
 const Slider: React.FC = () => {
-	const [activeSlide, setActiveSlide] = useState(0);
+	const [activeSlide, setActiveSlide] = useState(
+		Number(process.env.NEXT_PUBLIC_SLIDER_FIRST_SLIDE) || 0
+	);
 	const [isHovered, setIsHovered] = useState(false);
 	const [allowHover, setAllowHover] = useState(false);
 	const isFirstSlide = activeSlide === 0;
