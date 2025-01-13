@@ -116,19 +116,27 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 	}, []);
 
 	useEffect(() => {
-		if (isOpen && !startTimeRef.current) {
-			startTimeRef.current = Date.now();
+		if (isOpen) {
+			if (!startTimeRef.current) {
+				startTimeRef.current = Date.now(); // Set the start time only once per open session
+			}
 			timerIntervalRef.current = setInterval(() => {
-				if (startTimeRef.current) {
-					const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-					setTimeSpent(elapsed);
-				}
+				const elapsed = Math.floor((Date.now() - (startTimeRef.current || 0)) / 1000);
+				setTimeSpent(elapsed);
 			}, 1000);
+		} else {
+			// Cleanup the timer when menu closes
+			if (timerIntervalRef.current) {
+				clearInterval(timerIntervalRef.current);
+				timerIntervalRef.current = null;
+			}
 		}
 
 		return () => {
+			// Ensure cleanup on component unmount or when `isOpen` changes
 			if (timerIntervalRef.current) {
 				clearInterval(timerIntervalRef.current);
+				timerIntervalRef.current = null;
 			}
 		};
 	}, [isOpen]);
