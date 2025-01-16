@@ -101,14 +101,13 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 
 		if (allHidden) {
 			allHiddenChecked.current = true;
-			setTimeout(() => setShowRules(true), 500); // Add a small delay before showing rules
+			setTimeout(() => setShowRules(true), 500);
 		}
 	};
 
 	useEffect(() => {
 		if (isOpen) {
-			allHiddenChecked.current = false; // Reset the check when menu opens
-			// Hide all items and start the initial hiding cycle
+			allHiddenChecked.current = false;
 			MENU_ITEMS.forEach((item) => {
 				uselessMenuGame(item.id);
 			});
@@ -118,14 +117,13 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 	useEffect(() => {
 		if (isOpen) {
 			if (!startTimeRef.current) {
-				startTimeRef.current = Date.now(); // Set the start time only once per open session
+				startTimeRef.current = Date.now();
 			}
 			timerIntervalRef.current = setInterval(() => {
 				const elapsed = Math.floor((Date.now() - (startTimeRef.current || 0)) / 1000);
 				setTimeSpent(elapsed);
 			}, 1000);
 		} else {
-			// Cleanup the timer when menu closes
 			if (timerIntervalRef.current) {
 				clearInterval(timerIntervalRef.current);
 				timerIntervalRef.current = null;
@@ -133,7 +131,6 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 		}
 
 		return () => {
-			// Ensure cleanup on component unmount or when `isOpen` changes
 			if (timerIntervalRef.current) {
 				clearInterval(timerIntervalRef.current);
 				timerIntervalRef.current = null;
@@ -152,32 +149,28 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 			gameTimers.current.delete(index);
 		}
 
-		// Hide the item immediately using style
 		const menuItem = document.querySelector(`[data-menu-index="${index}"]`);
 		if (menuItem) {
 			(menuItem as HTMLElement).style.scale = "0";
 		}
 
-		// Add delay before checking if all items are hidden
-		setTimeout(() => checkAllItemsHidden(), 100); // Changed from 0 to 100ms
+		setTimeout(() => checkAllItemsHidden(), 100);
 
 		const randomTime = Math.random() * 5000 + 3000;
 
 		const timer = setTimeout(() => {
 			if (gameStarted) {
-				// This condition ensures items only appear after game starts
 				const menuItem = document.querySelector(`[data-menu-index="${index}"]`);
 				if (menuItem) {
 					(menuItem as HTMLElement).style.scale = "1";
 				}
 
-				// After item appears, start a new game cycle after 1 second
 				setTimeout(() => {
 					const menuItem = document.querySelector(`[data-menu-index="${index}"]`);
 					if (menuItem) {
 						(menuItem as HTMLElement).style.scale = "0";
 					}
-					uselessMenuGame(index); // Start a new cycle
+					uselessMenuGame(index);
 				}, 1000);
 			}
 		}, randomTime);
@@ -199,7 +192,6 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 			setUselessCount(newCount);
 			uselessMenuGame(index);
 
-			// Show congrats when game is finished
 			if (newCount === 0) {
 				setShowCongrats(true);
 				setIsLargeExploding(true);
@@ -244,7 +236,6 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 	}, [onClose]);
 
 	useEffect(() => {
-		// Initialize state from localStorage on client-side only
 		if (!GAME_TEST_STATE.isTestState && typeof window !== "undefined") {
 			const menuGameStarted = Boolean(localStorage.getItem("menuGameStarted"));
 			const storedCount = Number(localStorage.getItem("uselessCount"));
@@ -347,7 +338,6 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 						)}
 					</>
 				) : (
-					// The "REAL" MENU with navigation links when game is completed or skipped
 					<div className={styles.menuItems}>
 						{MENU_ITEMS.map((item) => (
 							<li key={item.id} className={styles.realMenuItem}>
@@ -357,7 +347,6 @@ export function Menu({ isOpen, onClose }: MenuProps) {
 									onClick={(e) => {
 										(e.target as HTMLElement).style.scale = "0";
 										setTimeout(() => ((e.target as HTMLElement).style.scale = "1"), 200);
-										// Clear any remaining game timeouts
 										if (timeoutId.current !== null) {
 											clearTimeout(timeoutId.current);
 										}

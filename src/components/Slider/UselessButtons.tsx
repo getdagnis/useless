@@ -37,7 +37,6 @@ const UselessButtons = ({ onClick }: UselessButtonsProps) => {
 	const handleBtn1MouseDown = () => {
 		isMouseDown.current = true;
 
-		// Start a 2-second timer
 		preLoadingRef.current = setTimeout(() => {
 			if (isMouseDown.current) {
 				setshowLoading(true);
@@ -45,7 +44,6 @@ const UselessButtons = ({ onClick }: UselessButtonsProps) => {
 		}, 500);
 	};
 
-	// Handle mouse up (reset everything)
 	const handleBtn1MouseUp = () => {
 		isMouseDown.current = false;
 		resetLoader();
@@ -96,38 +94,46 @@ const UselessButtons = ({ onClick }: UselessButtonsProps) => {
 	return (
 		<div className={styles.buttonWrapper}>
 			<h6>COMPLETELY USELESS BUTTONS</h6>
-			<div className={styles.buttons}>
-				{/* Button 1 */}
-				<div className={styles.btn1}>
-					<Button
-						text="Buy Now"
-						onClick={onClick}
-						onMouseDown={handleBtn1MouseDown}
-						onMouseUp={handleBtn1MouseUp}
-						onMouseLeave={handleBtn1MouseLeave}
-					/>
-				</div>
+			{loadingRealButtons !== 100 && (
+				<div className={styles.buttons}>
+					{/* Button 1 */}
+					<div className={styles.btn1}>
+						<Button
+							text="Buy Now"
+							onClick={onClick}
+							onMouseDown={handleBtn1MouseDown}
+							onMouseUp={handleBtn1MouseUp}
+							onMouseLeave={handleBtn1MouseLeave}
+						/>
+					</div>
 
-				{/* Button 2 */}
-				<div
-					className={`${styles.btn2} ${btn2Animation}`}
-					onClick={btn2Animations}
-					style={
-						btn2Clicked
-							? {
-									opacity: 0,
-							  }
-							: {}
-					}
-				>
-					<Button id="overthinkLater" text="Overthink Later" onClick={onClick} />
+					{/* Button 2 */}
+					<div
+						className={`${styles.btn2} ${btn2Animation}`}
+						onClick={btn2Animations}
+						style={
+							btn2Clicked
+								? {
+										opacity: 0,
+								  }
+								: {}
+						}
+					>
+						<Button id="overthinkLater" text="Overthink Later" onClick={onClick} />
+					</div>
 				</div>
-			</div>
+			)}
 
 			{/* Loading Bar */}
 			{showLoading && (
 				<div className={styles.loading} style={{ width: loadingRealButtons + "%" }}>
 					<p>{loadingRealButtons > 0 && `Loading the real buttons... ${loadingRealButtons}%`}</p>
+				</div>
+			)}
+
+			{loadingRealButtons === 100 && (
+				<div className={styles.realButtons}>
+					<p>Real Buttons</p>
 				</div>
 			)}
 		</div>
