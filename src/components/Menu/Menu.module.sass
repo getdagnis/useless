@@ -119,7 +119,7 @@
   margin-top: 3rem
   font-size: 1.25rem
   width: 100%
-  animation: fadeIn 2s ease 2s
+  animation: fadeIn 2s ease 0.5s
   animation-fill-mode: backwards
 
 .rulesContainer > div
@@ -210,11 +210,13 @@
 
 .confetti
   z-index: 9990
-  animation: fadeout 1s ease-in-out 5s
+  animation: fadeout 2s ease-in-out 5s
   animation-fill-mode: forwards
 
 @keyframes fadeout
   0%
+    opacity: 1
+  50%
     opacity: 1
   100%
     opacity: 0
